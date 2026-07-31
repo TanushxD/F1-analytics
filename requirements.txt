@@ -1,0 +1,9 @@
+kagglehub
+pandas
+numpy
+sqlalchemy
+psycopg2-binary
+duckdb
+python-dotenv
+jupyter
+pytest

@@ -1,0 +1,19 @@
+# Environments
+venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Data (large, shouldn't be in git)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+
+# DB files
+*.duckdb
