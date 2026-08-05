@@ -568,3 +568,236 @@ While fixing the above, hit two secondary but related errors:
 - **`TRUNCATE ... RESTART IDENTITY CASCADE`** — clears a table's rows, resets its auto-increment counter, and cascades to dependent tables.
 - **Database transaction (`engine.begin()`)** — a block of operations that either all succeed together (commit) or all fail together (rollback), preventing partially-applied changes.
 - **Orphan-check query pattern** (`LEFT JOIN ... WHERE right_table.key IS NULL`) — the standard SQL technique for proving referential integrity between two tables.
+
+## Day 5 — Advanced SQL Analytics (Window Functions, CTEs, Complex Aggregations)
+
+### The core question this day answers
+Day 4 proved the warehouse was structurally correct (referential integrity, row counts). Day 5's job: prove it's *analytically useful* — write real SQL that answers real F1 questions, using techniques (window functions, CTEs, self-joins) that go meaningfully beyond basic `SELECT`/`WHERE`/`GROUP BY`.
+
+All 5 queries live as standalone, reviewable `.sql` files in `sql/analytics_queries/`, executed from notebooks by reading the file and running it via SQLAlchemy — keeping SQL skill visibly separate from Python, rather than buried as string literals inside application code.
+
+---
+
+### Query 1 — Driver Championship Progression (`01_championship_progression.sql`)
+
+**Goal:** cumulative points per driver per season, plus a live championship rank recalculated after every race.
+
+```sql
+WITH driver_season_points AS (
+    SELECT
+        d.driver_key, d.forename, d.surname, r.year, r.round, r.race_date, f.points,
+        SUM(f.points) OVER (
+            PARTITION BY d.driver_key, r.year
+            ORDER BY r.round
+        ) AS cumulative_points
+    FROM fact_race_results f
+    JOIN dim_driver d ON f.driver_key = d.driver_key
+    JOIN dim_race r ON f.race_key = r.race_key
+)
+SELECT
+    forename, surname, year, round, race_date, points, cumulative_points,
+    RANK() OVER (
+        PARTITION BY year, round
+        ORDER BY cumulative_points DESC
+    ) AS championship_rank_after_race
+FROM driver_season_points
+WHERE year = 2023
+ORDER BY round, championship_rank_after_race;
+```
+
+**Key concepts:**
+- **CTE (`WITH ... AS (...)`)** — a named, temporary result set, used here to separate "compute the running total" from "rank based on that total" into two readable stages instead of one tangled query.
+- **Window function (`SUM(...) OVER (...)`)** — unlike a normal aggregate, a window function computes a value *without* collapsing rows — every original row stays visible, each gaining its own running total.
+- **`PARTITION BY driver_key, year`** — restarts the running total separately for each driver-season combination, instead of one meaningless total across everyone.
+- **`RANK()`** — assigns standings with ties sharing a rank and the next rank skipping accordingly (1, 2, 2, 4) — matching how real championship standings work.
+
+**Validation:** round 1 output exactly matched real 2023 Bahrain GP results and the FIA points table (Verstappen 25, Pérez 18, Alonso 15, ...). Confirmed 10 drivers tied at 0 points all correctly shared `rank = 11`.
+
+---
+
+### Query 2 — Constructor Reliability Rate (`02_reliability_rate.sql`)
+
+**Goal:** mechanical failure rate and finish rate per constructor per season — feeds directly into Day 6 feature engineering.
+
+**Challenge:** `dim_status` has 141 distinct granular status values (Engine, Gearbox, Hydraulics, +1 Lap, Disqualified, etc.) — no clean "DNF: Yes/No" flag exists in the source data. Checked the real values first (`SELECT * FROM dim_status`) before writing any categorization logic, rather than guessing generic status names.
+
+```sql
+WITH categorized_results AS (
+    SELECT
+        c.constructor_key, c.name AS constructor_name, r.year, f.result_id, s.status,
+        CASE
+            WHEN s.status = 'Finished' OR s.status LIKE '+%Lap%' THEN 'Finished'
+            WHEN s.status IN ('Accident', 'Collision', 'Spun off', 'Collision damage') THEN 'Accident'
+            WHEN s.status IN ('Disqualified', 'Excluded', 'Did not qualify', ...) THEN 'Other'
+            ELSE 'Mechanical'
+        END AS status_category
+    FROM fact_race_results f
+    JOIN dim_constructor c ON f.constructor_key = c.constructor_key
+    JOIN dim_race r ON f.race_key = r.race_key
+    JOIN dim_status s ON f.status_key = s.status_key
+),
+constructor_season_summary AS (
+    SELECT
+        constructor_key, constructor_name, year,
+        COUNT(*) AS total_entries,
+        COUNT(*) FILTER (WHERE status_category = 'Mechanical') AS mechanical_failures,
+        COUNT(*) FILTER (WHERE status_category = 'Finished') AS finishes
+    FROM categorized_results
+    GROUP BY constructor_key, constructor_name, year
+)
+SELECT
+    constructor_name, year, total_entries, mechanical_failures,
+    ROUND(mechanical_failures::NUMERIC / total_entries * 100, 1) AS mechanical_failure_rate_pct,
+    finishes,
+    ROUND(finishes::NUMERIC / total_entries * 100, 1) AS finish_rate_pct
+FROM constructor_season_summary
+WHERE year = 2023
+ORDER BY mechanical_failure_rate_pct DESC;
+```
+
+**Key concepts:**
+- **`CASE WHEN ... THEN ... ELSE ... END`** — SQL's if/elif/else. Checked top-to-bottom; unmatched "Other" statuses deliberately fall through to `ELSE 'Mechanical'`, avoiding the need to explicitly list 100+ mechanical failure sub-types by hand.
+- **`LIKE '+%Lap%'`** — pattern matching; `%` matches any characters, catching every `+N Lap(s)` status without 30 separate `OR` conditions.
+- **`COUNT(*) FILTER (WHERE ...)`** — a conditional count computed in a single pass, cleaner than the older `SUM(CASE WHEN x THEN 1 ELSE 0 END)` pattern (worth recognizing both, since older codebases often use the latter).
+- **`::NUMERIC` type cast** — without it, `mechanical_failures / total_entries` performs integer division (e.g. `3/10 = 0`, not `0.3`) — a classic SQL gotcha. Casting to `NUMERIC` first forces correct decimal division.
+
+**Validation:** Red Bull 2023 showed a **0.0% mechanical failure rate** — matching their historically dominant, near-perfect-reliability season (21 wins of 22 races). Ferrari topped the failure-rate list (11.4%), consistent with their well-documented 2023 reliability struggles.
+
+---
+
+### Query 3 — Grid-to-Finish Delta / "Overtaking Index" (`03_grid_delta.sql`)
+
+**Goal:** average positions gained/lost between qualifying grid and race finish, per driver per season.
+
+```sql
+WITH race_deltas AS (
+    SELECT
+        d.driver_key, d.forename, d.surname, r.year, f.race_key, f.grid, f.position_order,
+        (f.grid - f.position_order) AS positions_gained
+    FROM fact_race_results f
+    JOIN dim_driver d ON f.driver_key = d.driver_key
+    JOIN dim_race r ON f.race_key = r.race_key
+    WHERE f.grid > 0
+),
+driver_season_avg AS (
+    SELECT
+        driver_key, forename, surname, year,
+        COUNT(*) AS races_completed,
+        ROUND(AVG(positions_gained), 2) AS avg_positions_gained
+    FROM race_deltas
+    GROUP BY driver_key, forename, surname, year
+    HAVING COUNT(*) >= 5
+)
+SELECT
+    forename, surname, year, races_completed, avg_positions_gained,
+    DENSE_RANK() OVER (PARTITION BY year ORDER BY avg_positions_gained DESC) AS overtaking_rank
+FROM driver_season_avg
+WHERE year = 2023
+ORDER BY overtaking_rank;
+```
+
+**Key concepts:**
+- **`WHERE f.grid > 0`** — excludes pit-lane starts (`grid = 0`), which would otherwise badly distort the "positions gained" baseline.
+- **`HAVING COUNT(*) >= 5`** — filters on an aggregate result, which `WHERE` cannot do (it runs *before* grouping exists). Excludes drivers with too few races that season (e.g., mid-season substitutes) to produce a meaningful average.
+- **`DENSE_RANK()` vs `RANK()`** — `DENSE_RANK()` doesn't skip numbers after ties (1, 2, 2, 3 instead of 1, 2, 2, 4), producing a cleaner leaderboard for this metric.
+
+**Validation:** Pérez (+2.50) and Verstappen (+1.91) topped the list — consistent with Red Bull's car dominance letting both drivers routinely recover from grid penalties/qualifying slumps. Leclerc (−2.57) and Hülkenberg (−3.21) at the bottom matched their known strong-qualifying/weaker-race-pace patterns that season.
+
+---
+
+### Query 4 — Rolling Form Index (`04_rolling_form.sql`)
+
+**Goal:** a 5-race trailing average of points, to capture recent form rather than season-long totals — direct setup for Day 6's feature engineering.
+
+```sql
+WITH driver_race_points AS (
+    SELECT d.driver_key, d.forename, d.surname, r.year, r.round, r.race_date, f.points
+    FROM fact_race_results f
+    JOIN dim_driver d ON f.driver_key = d.driver_key
+    JOIN dim_race r ON f.race_key = r.race_key
+    WHERE r.year = 2023
+)
+SELECT
+    forename, surname, round, race_date, points,
+    ROUND(
+        AVG(points) OVER (
+            PARTITION BY driver_key
+            ORDER BY round
+            ROWS BETWEEN 4 PRECEDING AND CURRENT ROW
+        ), 2
+    ) AS rolling_5race_form
+FROM driver_race_points
+WHERE surname = 'Verstappen'
+ORDER BY round;
+```
+
+**Key concept — the frame clause:** `ROWS BETWEEN 4 PRECEDING AND CURRENT ROW` restricts the window function to the current row plus the 4 immediately before it (5 rows total). At round 1, no prior rows exist, so the "rolling average" is just that round's own points; the window fills in gradually and becomes a genuine 5-race average from round 5 onward — Postgres handles this partial-window behavior automatically, equivalent to `min_periods=1` in a Pandas rolling window.
+
+**Validation:** round 15 of 2023 (Singapore GP — Verstappen's only non-win that season, finishing P5) showed `points = 10.0`. The rolling average visibly dipped from `25.40` to `22.20` in response — correctly absorbing one anomalous result into the recent-form trend rather than treating it as noise, exactly the behavior a rolling average is meant to produce.
+
+---
+
+### Query 5 — Teammate Head-to-Head (`05_teammate_head_to_head.sql`)
+
+**Goal:** for each constructor, compare finishing positions between teammates race-by-race, isolating driver skill from car performance.
+
+```sql
+WITH teammate_pairs AS (
+    SELECT
+        f1.race_key, r.year, f1.constructor_key,
+        f1.driver_key AS driver_a_key, f1.position_order AS driver_a_position,
+        f2.driver_key AS driver_b_key, f2.position_order AS driver_b_position
+    FROM fact_race_results f1
+    JOIN fact_race_results f2
+        ON f1.race_key = f2.race_key
+       AND f1.constructor_key = f2.constructor_key
+       AND f1.driver_key < f2.driver_key
+    JOIN dim_race r ON f1.race_key = r.race_key
+),
+head_to_head AS (
+    SELECT
+        constructor_key, year, driver_a_key, driver_b_key,
+        COUNT(*) FILTER (WHERE driver_a_position < driver_b_position) AS a_wins,
+        COUNT(*) FILTER (WHERE driver_b_position < driver_a_position) AS b_wins,
+        COUNT(*) AS races_together
+    FROM teammate_pairs
+    GROUP BY constructor_key, year, driver_a_key, driver_b_key
+)
+SELECT
+    c.name AS constructor_name, h.year,
+    da.forename || ' ' || da.surname AS driver_a,
+    db.forename || ' ' || db.surname AS driver_b,
+    h.a_wins, h.b_wins, h.races_together
+FROM head_to_head h
+JOIN dim_constructor c ON h.constructor_key = c.constructor_key
+JOIN dim_driver da ON h.driver_a_key = da.driver_key
+JOIN dim_driver db ON h.driver_b_key = db.driver_key
+WHERE h.year = 2023
+ORDER BY h.races_together DESC;
+```
+
+**Key concepts:**
+- **Self-join** — joining `fact_race_results` to itself (aliased `f1`/`f2`) to compare two different drivers' results within the same race and team.
+- **`f1.driver_key < f2.driver_key`** — a deliberate inequality in the join condition that simultaneously prevents a driver being paired with themselves and prevents each pair appearing twice (once each direction).
+- **`||` string concatenation** — combines `forename` and `surname` into one readable display column.
+
+**Validation:** Verstappen led Pérez 20–2 (matching Pérez's documented second-half 2023 slump); Norris led rookie teammate Piastri 17–5; Alonso led Stroll 18–4 (Alonso's strong comeback season); Leclerc edged Sainz 12–10 in a genuinely close intra-team battle — all consistent with real 2023 results. Notably, AlphaTauri correctly appeared as **three separate pairings** (10 + 7 + 5 = 22 races) reflecting a real mid-season driver swap (de Vries → Ricciardo → Lawson) — the self-join handled this correctly without any special-case logic.
+
+---
+
+### Key lessons from Day 5
+1. **Window functions compute per-row values without collapsing rows** — the core distinction from `GROUP BY` aggregation, and the foundation for running totals, rankings, and rolling averages.
+2. **`WHERE` filters before aggregation; `HAVING` filters after** — a distinction with no equivalent in basic Pandas filtering, and a common SQL interview question.
+3. **Real categorical data is messy** — 141 status values had to be manually bucketed via `CASE WHEN`, not assumed to arrive pre-cleaned. Checking real values before writing categorization logic (same habit as Day 3's column-checking before DDL) avoided guessing wrong.
+4. **Self-joins solve "compare two rows from the same table"** problems — a technique with no direct single-table equivalent, essential for any head-to-head/pairwise comparison.
+5. **Numerically validating results against known real-world facts** (Red Bull's perfect reliability, Verstappen's Singapore loss, the Pérez/Verstappen head-to-head) is a stronger correctness check than just confirming a query runs without error — this is the same "does this make real-world sense" discipline applied back in Day 2's null-count validation, now applied to SQL output.
+
+### New concepts learned (added to running glossary)
+- **CTE (`WITH ... AS (...)`)** — a named, temporary, reusable result set within a single query.
+- **Window function (`... OVER (...)`)** — computes a value per row without collapsing rows, unlike a normal aggregate.
+- **Frame clause (`ROWS BETWEEN ... AND ...`)** — restricts a window function to a specific sliding range of rows relative to the current one (used for rolling averages).
+- **`RANK()` vs `DENSE_RANK()`** — `RANK()` skips numbers after ties; `DENSE_RANK()` does not.
+- **`HAVING`** — filters on the result of an aggregate function, after grouping; distinct from `WHERE`, which filters before grouping.
+- **`FILTER (WHERE ...)`** — computes a conditional aggregate (e.g. conditional `COUNT`) in a single pass.
+- **Type cast (`::NUMERIC`)** — explicitly converts a value's type, needed here to avoid integer division truncating a percentage calculation to 0.
+- **Self-join** — joining a table to itself (via aliases) to compare rows within the same table, e.g. teammates in the same race.
