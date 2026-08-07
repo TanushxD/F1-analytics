@@ -790,7 +790,7 @@ ORDER BY h.races_together DESC;
 2. **`WHERE` filters before aggregation; `HAVING` filters after** — a distinction with no equivalent in basic Pandas filtering, and a common SQL interview question.
 3. **Real categorical data is messy** — 141 status values had to be manually bucketed via `CASE WHEN`, not assumed to arrive pre-cleaned. Checking real values before writing categorization logic (same habit as Day 3's column-checking before DDL) avoided guessing wrong.
 4. **Self-joins solve "compare two rows from the same table"** problems — a technique with no direct single-table equivalent, essential for any head-to-head/pairwise comparison.
-5. **Numerically validating results against known real-world facts** (Red Bull's perfect reliability, Verstappen's Singapore loss, the Pérez/Verstappen head-to-head) is a stronger correctness check than just confirming a query runs without error — this is the same "does this make real-world sense" discipline applied back in Day 2's null-count validation, now applied to SQL output.
+5. **Numerically validating results against known real-world facts** (Red Bull's perfect reliability, Verstappen's Singapore loss, the Pérez/Verstappen head-to-head) is a stronger correctness check than just confirming a query runs without error — this is the same "does this make real-world sense" discipline applied back in Day 2's null-count validation, now applied to SQL output
 
 ### New concepts learned (added to running glossary)
 - **CTE (`WITH ... AS (...)`)** — a named, temporary, reusable result set within a single query.
