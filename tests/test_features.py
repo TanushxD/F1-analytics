@@ -1,7 +1,4 @@
 import pandas as pd
-import sys, os
-
-sys.path.append(os.path.abspath(".."))
 from src.features import compute_rolling_form
 
 
