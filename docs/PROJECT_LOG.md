@@ -801,3 +801,229 @@ ORDER BY h.races_together DESC;
 - **`FILTER (WHERE ...)`** — computes a conditional aggregate (e.g. conditional `COUNT`) in a single pass.
 - **Type cast (`::NUMERIC`)** — explicitly converts a value's type, needed here to avoid integer division truncating a percentage calculation to 0.
 - **Self-join** — joining a table to itself (via aliases) to compare rows within the same table, e.g. teammates in the same race.
+
+## Day 6 — Python Feature Engineering (Form Indexes, Reliability Metrics, Predictive Signals)
+
+### The core question this day answers
+Day 5 proved a set of analytical metrics were meaningful *in SQL*. Day 6's job: reproduce the same analytical thinking in Python/Pandas — needed because real feature engineering for modeling often has to live in Python, not SQL — and prove both versions agree, using the SQL results from Day 5 as a correctness baseline rather than trusting the Pandas version blindly.
+
+All features pull data **out of the warehouse** (not the raw CSVs), reinforcing that the warehouse — not the original Kaggle files — is now the single source of truth for downstream work.
+
+---
+
+### Base data loader
+
+```python
+def load_results_base(engine) -> pd.DataFrame:
+    """Pulls a clean, joined driver-result-race base table straight from the warehouse."""
+    query = """
+        SELECT
+            f.result_id, d.driver_key, d.forename, d.surname,
+            c.constructor_key, c.name AS constructor_name,
+            r.race_key, r.year, r.round, r.race_date,
+            f.grid, f.position_order, f.points, s.status
+        FROM fact_race_results f
+        JOIN dim_driver d ON f.driver_key = d.driver_key
+        JOIN dim_constructor c ON f.constructor_key = c.constructor_key
+        JOIN dim_race r ON f.race_key = r.race_key
+        JOIN dim_status s ON f.status_key = s.status_key
+        ORDER BY d.driver_key, r.race_date
+    """
+    return pd.read_sql(query, engine)
+```
+Built once, reused by every feature function, avoiding repeated JOIN logic. The `ORDER BY d.driver_key, r.race_date` is load-bearing, not cosmetic — every rolling/cumulative calculation downstream assumes chronological order per driver.
+
+---
+
+### Feature 1 — Rolling Form Index
+
+```python
+def compute_rolling_form(df: pd.DataFrame, window: int = 5) -> pd.DataFrame:
+    df = df.sort_values(["driver_key", "year", "race_date"]).copy()
+    df["rolling_form_index"] = (
+        df.groupby(["driver_key", "year"])["points"]
+        .transform(lambda x: x.rolling(window=window, min_periods=1).mean())
+    )
+    return df
+```
+
+**Mechanics:** `.groupby(["driver_key", "year"])` groups by driver *and* season; `.transform(lambda x: x.rolling(window=5, min_periods=1).mean())` computes a trailing 5-race average within each group, returning one value per row (`.transform`, not `.apply`, specifically to preserve row count/shape). `min_periods=1` allows partial windows early in a season, mirroring SQL's automatic `ROWS BETWEEN 4 PRECEDING` behavior at round 1–4.
+
+### Bug hit: cross-season bleed
+
+**First version** grouped only by `driver_key` (no `year`), producing values that didn't match Day 5's SQL output for early-season rounds (round 1: SQL said `25.00`, Pandas said `21.6`). Root cause: the rolling window was sliding across a driver's entire career uninterrupted by season boundaries, quietly blending in late-2022 races into "round 1 of 2023."
+
+**Fix:** changed `df.groupby("driver_key")` to `df.groupby(["driver_key", "year"])`, forcing the rolling window to reset at every season boundary — mirroring what `WHERE year = 2023` had already done inside Day 5's SQL CTE, before its window function ran.
+
+**Result after fix:** Pandas output matched Day 5's SQL output exactly, round-for-round, including the anomalous Singapore 2023 dip (round 15, Verstappen's only non-win, points dropped to 10.0, `rolling_form_index` correctly dipped from 25.40 to 22.20 in response).
+
+### Unit tests written (`tests/test_features.py`)
+
+```python
+def test_rolling_form_no_lookahead_bias():
+    sample_data = pd.DataFrame({
+        "driver_key": [1, 1, 1, 1, 1],
+        "year": [2023, 2023, 2023, 2023, 2023],
+        "race_date": pd.to_datetime(["2023-01-01","2023-02-01","2023-03-01","2023-04-01","2023-05-01"]),
+        "points": [10, 20, 30, 40, 50],
+    })
+    result = compute_rolling_form(sample_data, window=3)
+    expected = [10.0, 15.0, 20.0, 30.0, 40.0]
+    for i, exp_value in enumerate(expected):
+        assert abs(result.iloc[i]["rolling_form_index"] - exp_value) < 0.001
+
+
+def test_rolling_form_resets_per_season():
+    sample_data = pd.DataFrame({
+        "driver_key": [1, 1, 1],
+        "year": [2022, 2023, 2023],
+        "race_date": pd.to_datetime(["2022-11-01", "2023-01-01", "2023-02-01"]),
+        "points": [100, 10, 20],
+    })
+    result = compute_rolling_form(sample_data, window=5)
+    row_2023_first = result[(result["year"] == 2023)].iloc[0]
+    assert row_2023_first["rolling_form_index"] == 10.0
+```
+Test 1 hand-computes expected rolling values against a known input sequence and asserts an exact (tolerance-bounded) match, directly proving no future value leaks into an earlier row. Test 2 directly targets the exact bug just fixed — a leftover high value from the previous season must not bleed into the first race of a new one.
+
+### Tooling snag: `pytest` path resolution differs from notebooks
+
+Running `pytest tests/test_features.py` failed with `ModuleNotFoundError: No module named 'src'`, despite using the same `sys.path.append(os.path.abspath(".."))` line that fixes this in notebooks. **Root cause:** notebooks execute from inside `notebooks/`, so `..` correctly climbs to the project root — but `pytest` was invoked from the project root itself, so the identical `..` climbed one level *too high* (`Music\` instead of `Music\F1-analytics\`).
+
+**Fix:** created `pytest.ini` at the project root:
+```ini
+[pytest]
+pythonpath = .
+```
+This tells pytest to add the project root to the import path directly, regardless of which subfolder a test happens to invoke it from — a cleaner, more portable fix than manual `sys.path` patching, which is fragile and tool/location-dependent. Removed the now-incorrect `sys.path.append` line from the test file entirely.
+
+**Lesson:** the same import statement can require different fixes depending on which tool runs it (notebook vs. pytest vs. plain script), because each starts from a different working directory. `pytest.ini` with `pythonpath = .` is the standard, tool-agnostic fix.
+
+Both tests passed after the fixes:
+```
+tests/test_features.py::test_rolling_form_no_lookahead_bias PASSED
+tests/test_features.py::test_rolling_form_resets_per_season PASSED
+```
+
+---
+
+### Feature 2 — Reliability Rate
+
+```python
+def categorize_status(status: str) -> str:
+    """Buckets raw F1 status text into broad categories — mirrors the CASE WHEN logic
+    from Day 5's SQL reliability query, kept consistent across both tools."""
+    if status == "Finished" or ("Lap" in status and status.startswith("+")):
+        return "Finished"
+    if status in ("Accident", "Collision", "Spun off", "Collision damage"):
+        return "Accident"
+    other_statuses = {
+        "Disqualified", "Excluded", "Did not qualify", "Did not prequalify",
+        "Not classified", "Withdrew", "Not restarted", "Underweight",
+        "Safety concerns", "107% Rule", "Safety", "Injured", "Injury",
+        "Fatal accident", "Eye injury", "Driver unwell", "Illness", "Physical",
+    }
+    if status in other_statuses:
+        return "Other"
+    return "Mechanical"
+
+
+def compute_reliability_rate(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.sort_values(["driver_key", "year", "race_date"]).copy()
+    df["status_category"] = df["status"].apply(categorize_status)
+    df["is_finished"] = (df["status_category"] == "Finished").astype(int)
+    df["races_so_far"] = df.groupby(["driver_key", "year"]).cumcount() + 1
+    df["finishes_so_far"] = df.groupby(["driver_key", "year"])["is_finished"].cumsum()
+    df["reliability_rate"] = round(df["finishes_so_far"] / df["races_so_far"] * 100, 1)
+    return df
+```
+
+**Deliberate design choice:** `categorize_status` is a direct, rule-for-rule translation of Day 5's SQL `CASE WHEN` block — same category boundaries in both tools, so any mismatch found later would represent a genuine bug rather than a false discrepancy from differently-defined categories.
+
+**Mechanics:** `(condition).astype(int)` turns a boolean Series into 1/0 flags, summable/averageable directly. `.groupby(...).cumcount() + 1` numbers races within each driver-season group starting at 1 ("how many races into this season, for this driver"). `.groupby(...)["is_finished"].cumsum()` gives a running total of finishes. Dividing the two produces a **season-to-date** reliability percentage that updates after every race — a more useful predictive feature than a single static end-of-season number.
+
+**Validation:** by the final race of 2023, Verstappen showed `reliability_rate = 100.0`, Pérez showed `90.9` — consistent with Day 5's team-level finding of a 0% *mechanical* failure rate for Red Bull (Pérez's dropped points came from accidents, not mechanical failures — a distinction `categorize_status` correctly preserves as a separate "Accident" bucket).
+
+**Pandas trap caught along the way:** initially used `.tail(10)` on a filtered-but-unsorted-by-race-date DataFrame expecting "last 10 races across the team," but since the data was sorted by `driver_key` first, `.tail(10)` returned only one driver's rows. Fixed with `.groupby("surname").tail(1)` — "last row of each group" — the correct pattern for per-group "most recent" lookups, distinct from `.tail(n)` on a flat frame.
+
+---
+
+### Feature 3 — Grid Delta (with a running/expanding trend)
+
+```python
+def compute_grid_delta(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.sort_values(["driver_key", "year", "race_date"]).copy()
+    df["grid_delta"] = df["grid"] - df["position_order"]
+    valid_grid = df["grid"] > 0
+    df.loc[valid_grid, "grid_delta_running_avg"] = (
+        df[valid_grid]
+        .groupby(["driver_key", "year"])["grid_delta"]
+        .transform(lambda x: x.expanding(min_periods=1).mean())
+    )
+    return df
+```
+
+**New concept — `.expanding()` vs `.rolling()`:** `.rolling(window=5)` always looks at a fixed-size sliding window (last 5 races only). `.expanding()` instead grows to include every race so far within the group — a genuinely different signal ("cumulative overtaking ability this season," not "recent-5-race form"). `valid_grid = df["grid"] > 0` excludes pit-lane starts (no real grid position), matching Day 5's SQL filter; using `.loc[valid_grid, ...]` leaves excluded rows as `NaN` rather than dropping them from the DataFrame outright.
+
+**Validation:** final-round `grid_delta_running_avg` for Verstappen 2023 came out to `1.909091`, matching Day 5's SQL result (`1.91`) almost exactly.
+
+---
+
+### Feature 4 — Teammate Delta
+
+```python
+def compute_teammate_delta(df: pd.DataFrame) -> pd.DataFrame:
+    merged = df.merge(df, on=["race_key", "constructor_key"], suffixes=("", "_teammate"))
+    merged = merged[merged["driver_key"] != merged["driver_key_teammate"]]
+    merged["teammate_finish_delta"] = (
+        merged["position_order_teammate"] - merged["position_order"]
+    )
+    return merged[[
+        "driver_key", "race_key", "year", "round", "forename", "surname",
+        "constructor_name", "position_order", "driver_key_teammate",
+        "position_order_teammate", "teammate_finish_delta"
+    ]]
+```
+
+**New concept — self-merge:** the Pandas equivalent of Day 5's SQL self-join. `df.merge(df, on=[...], suffixes=("", "_teammate"))` pairs every row with every other row sharing the same race and constructor; `suffixes` controls how overlapping column names are disambiguated between the two copies.
+
+**Deliberate difference from the SQL version:** Day 5's SQL used `f1.driver_key < f2.driver_key` specifically to produce *one* row per pairing (a head-to-head summary table). Here, `!=` is used instead of `<`, deliberately keeping **both directions** of each pairing — because this is a per-driver feature column (each driver needs their own row showing their personal delta relative to their teammate), not a summary table.
+
+**Validation:** Pérez's `teammate_finish_delta` values against Verstappen were mostly negative across 2023, consistent with the 2–20 head-to-head record from Day 5. One notably extreme value (`-15` at round 6) checked out against real history — Monaco 2023, where Pérez crashed in qualifying and started last.
+
+---
+
+### Assembling the feature store
+
+```python
+feature_store = base_df.copy()
+feature_store = compute_rolling_form(feature_store)
+feature_store = compute_reliability_rate(feature_store)
+feature_store = compute_grid_delta(feature_store)
+
+teammate_features = compute_teammate_delta(base_df)[["driver_key", "race_key", "teammate_finish_delta"]]
+feature_store = feature_store.merge(teammate_features, on=["driver_key", "race_key"], how="left")
+
+feature_store.to_parquet("../data/processed/feature_store.parquet", index=False)
+```
+Three features chain directly onto the same DataFrame since they each add columns in place. The teammate feature is handled differently — since `compute_teammate_delta` performs its own internal self-merge and produces a differently-shaped result, only the one needed output column is extracted and joined back onto the main feature store via `driver_key` + `race_key`, the same conceptual operation as any SQL join, just performed in Pandas.
+
+---
+
+### Key lessons from Day 6
+1. **Cross-validating a Pandas feature against an independently-written SQL query is a genuinely strong correctness check** — it caught a real bug (season-boundary bleed) that would have been easy to miss if the Pandas version had simply been trusted on its own.
+2. **`.rolling()` vs `.expanding()`** are both legitimate but answer different questions — fixed recent-window trend vs. cumulative-since-start trend — worth choosing deliberately based on what the feature is meant to represent, not defaulting to one out of habit.
+3. **`.transform()` vs `.apply()` on a groupby** — `.transform()` preserves the original row count/shape (one output per input row), which is required when adding a new column back onto the same DataFrame; `.apply()` can collapse groups, which is usually not what's wanted for row-level feature engineering.
+4. **The same code can need different fixes in different execution contexts** (notebook vs. pytest) because each starts from a different working directory — solved generally with `pytest.ini`'s `pythonpath = .` rather than per-file path patching.
+5. **Translating the same business logic (status categorization) identically across SQL and Python** is what makes a cross-tool validation meaningful — if the category rules had silently diverged between the two versions, any mismatch found would be a false signal, not a real bug.
+
+### New concepts learned (added to running glossary)
+- **`.groupby(...).transform(lambda ...)`** — applies a function per group while preserving the original row count/shape, unlike `.apply()`, which can collapse groups.
+- **`.rolling(window=n, min_periods=1)`** — Pandas' fixed-size sliding-window calculation; `min_periods=1` allows partial windows at the start of a group (Pandas' equivalent of SQL's automatic partial-frame behavior).
+- **`.expanding(min_periods=1)`** — a cumulative, ever-growing window from the start of a group, distinct from `.rolling()`'s fixed size.
+- **`.cumcount()`** — numbers rows within each group starting at 0, useful for "how many records into this group so far."
+- **`.cumsum()`** — running total within each group.
+- **Boolean-to-flag pattern (`(condition).astype(int)`)** — converts a True/False Series into summable/averageable 1/0 values.
+- **Self-merge (`df.merge(df, on=[...], suffixes=(...))`)** — the Pandas equivalent of a SQL self-join, pairing every row with every other row sharing specified key columns.
+- **`.groupby(col).tail(1)`** vs **`.tail(n)`** — the former gets the last row of *each group*; the latter gets the last N rows of the whole (possibly multi-group) DataFrame — an easy trap when data isn't sorted the way it's assumed to be.
+- **`pytest.ini` (`pythonpath = .`)** — tells pytest to add the project root to the import search path, independent of which subfolder tests are invoked from.
