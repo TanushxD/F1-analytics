@@ -13,4 +13,4 @@
 ## Dashboard 3: Qualifying vs Race Pace
 - Grid position vs finish position (scatter plot, per driver)
 - Grid delta distribution per driver (box plot)
-- Teammate head-to-head record (per constructor, per season)
+- Teammate head-to-head records (per constructor, per season)
