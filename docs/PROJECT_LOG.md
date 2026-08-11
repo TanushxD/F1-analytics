@@ -1027,3 +1027,137 @@ Three features chain directly onto the same DataFrame since they each add column
 - **Self-merge (`df.merge(df, on=[...], suffixes=(...))`)** — the Pandas equivalent of a SQL self-join, pairing every row with every other row sharing specified key columns.
 - **`.groupby(col).tail(1)`** vs **`.tail(n)`** — the former gets the last row of *each group*; the latter gets the last N rows of the whole (possibly multi-group) DataFrame — an easy trap when data isn't sorted the way it's assumed to be.
 - **`pytest.ini` (`pythonpath = .`)** — tells pytest to add the project root to the import search path, independent of which subfolder tests are invoked from.
+
+## Day 7 — Designing the Tableau Extract, Data Layering, and KPI Planning
+
+### The core question this day answers
+Days 1–6 built a correct, queryable, feature-rich warehouse — but Tableau Public cannot connect live to a local PostgreSQL database at all (no live external DB connections are permitted on Tableau Public, for security reasons). Day 7's job: design a denormalized, flattened data layer and export it into a `.hyper` file — the actual binary format Tableau reads — before any dashboard building begins on Day 8.
+
+---
+
+### KPI planning before touching any code
+
+Wrote `docs/kpi_definitions.md` first, defining exactly what each of the three planned dashboards needs to show, before writing any SQL or export code:
+- **Dashboard 1 — Executive Championship Overview:** cumulative points per driver per season, wins/podiums per constructor, current leader and points gap.
+- **Dashboard 2 — Constructor Reliability Deep-Dive:** mechanical failure rate, finish rate, accident rate per constructor per season.
+- **Dashboard 3 — Qualifying vs Race Pace:** grid vs finish position scatter, grid delta distribution, teammate head-to-head.
+
+**Why plan this first:** avoids ending up with "a dashboard full of numbers that exist" rather than numbers that actually answer a real question — the KPI list becomes the source of truth Day 8's dashboards are built against.
+
+---
+
+### Designing a denormalized BI view
+
+Real architectural principle applied here: **Tableau performs best against one flat, wide table with human-readable columns — not several normalized tables joined live inside Tableau itself.** The warehouse's normalized structure (5 dimensions, 2 facts, surrogate keys) is correct for a database, but wrong for a BI extract — so a SQL view was built specifically to flatten it.
+
+```sql
+CREATE VIEW vw_tableau_main AS
+SELECT
+    f.result_id,
+    d.forename || ' ' || d.surname AS driver_name,
+    d.nationality AS driver_nationality,
+    c.name AS constructor_name,
+    c.nationality AS constructor_nationality,
+    ci.name AS circuit_name,
+    ci.country AS circuit_country,
+    r.year, r.round, r.race_date, r.name AS race_name,
+    f.grid, f.position_order AS finish_position, f.points, f.laps,
+    s.status,
+    CASE
+        WHEN s.status = 'Finished' OR s.status LIKE '+%Lap%' THEN 'Finished'
+        WHEN s.status IN ('Accident', 'Collision', 'Spun off', 'Collision damage') THEN 'Accident'
+        ELSE 'Mechanical/Other'
+    END AS status_category,
+    (f.grid - f.position_order) AS grid_delta
+FROM fact_race_results f
+JOIN dim_driver d ON f.driver_key = d.driver_key
+JOIN dim_constructor c ON f.constructor_key = c.constructor_key
+JOIN dim_race r ON f.race_key = r.race_key
+JOIN dim_circuit ci ON r.circuit_key = ci.circuit_key
+JOIN dim_status s ON f.status_key = s.status_key
+WHERE f.grid > 0 OR f.grid IS NULL;
+```
+
+**Key concepts:**
+- **`CREATE VIEW` vs `CREATE TABLE`** — a view stores no data itself; it re-runs its underlying query every time it's referenced, giving an always-current flattened representation of the warehouse without duplicating storage.
+- **`d.forename || ' ' || d.surname AS driver_name`** — human-readable names substituted for surrogate keys, the essence of "denormalizing for BI": Tableau users shouldn't need to understand `driver_key = 847`, they need "Lewis Hamilton."
+- **Every dimension joined into one flat row** — combines what Day 5's separate analytical queries each did individually into a single wide result Tableau can consume without needing to understand the relational structure at all.
+- **`status_category`** reuses the Day 5/6 categorization logic directly inside the view, so Tableau's own calculated-field syntax doesn't need to reimplement it a third time.
+
+---
+
+### Building the `.hyper` export pipeline
+
+Installed `tableauhyperapi` and wrote `src/tableau_export.py`, using Tableau's own Python library to write a native `.hyper` file — the actual binary format Tableau Desktop/Public read.
+
+```python
+def export_to_hyper():
+    df = pd.read_sql("SELECT * FROM vw_tableau_main", engine)
+
+    with HyperProcess(telemetry=Telemetry.DO_NOT_SEND_USAGE_DATA_TO_TABLEAU) as hyper:
+        with Connection(endpoint=hyper.endpoint, database=OUTPUT_PATH,
+                         create_mode=CreateMode.CREATE_AND_REPLACE) as connection:
+
+            table_def = TableDefinition(
+                table_name=TableName("Extract", "f1_results"),
+                columns=[
+                    TableDefinition.Column("result_id", SqlType.int()),
+                    TableDefinition.Column("driver_name", SqlType.text()),
+                    # ... remaining columns, one per SELECT column, typed explicitly
+                ]
+            )
+
+            connection.catalog.create_schema("Extract")
+            connection.catalog.create_table(table_def)
+
+            df = df.astype(object).where(pd.notnull(df), None)
+
+            with Inserter(connection, table_def) as inserter:
+                inserter.add_rows(rows=df.values.tolist())
+                inserter.execute()
+```
+
+**Key concepts:**
+- **`HyperProcess`** — starts a temporary local background process running Tableau's own "Hyper" database engine, which knows how to write `.hyper` files directly.
+- **`TableDefinition(...)`** — Hyper files require an explicit schema declared up front, conceptually identical to Day 3's DDL, just expressed through the Hyper API's Python interface and its own type system (`SqlType.int()`, `SqlType.text()`, `SqlType.date()`, `SqlType.double()`) rather than raw SQL.
+- **`df.astype(object).where(pd.notnull(df), None)`** — a necessary conversion step: the Hyper API expects Python's native `None` for null values, not Pandas' `NaN`, so this line explicitly swaps one for the other before insertion.
+- **`Inserter(...).add_rows(...).execute()`** — the bulk-write mechanism, taking the DataFrame's rows as plain Python lists and writing them into the `.hyper` file in one batch operation.
+
+Verified the exported file existed (655 KB) and was readable by re-opening it and running a `COUNT(*)` query directly against it via the Hyper API — proof the write wasn't silently truncated or corrupted.
+
+---
+
+### Bug hit: silent row loss from a `WHERE` clause that didn't do what it appeared to
+
+**What happened:** the initial `.hyper` extract contained **25,121 rows**, not the expected 26,759 (the known `fact_race_results` row count from Day 4) — a gap of 1,638 missing rows, only caught because the row count was explicitly re-verified after export rather than assumed correct just because the file existed.
+
+**Root cause:** the view's filter,
+```sql
+WHERE f.grid > 0 OR f.grid IS NULL
+```
+was intended to mean "keep every row except invalid pit-lane starts." But the `grid` column stores "no grid position" as the literal integer `0`, not a true SQL `NULL` — meaning `f.grid IS NULL` was essentially always false, and the condition silently collapsed to just `WHERE f.grid > 0`, quietly dropping every pit-lane-start row from the *entire* extract — not just from grid-delta-specific calculations where that exclusion would have been appropriate.
+
+**Deeper design issue exposed:** this wasn't just a syntax mistake — it revealed that a single wide view was trying to simultaneously serve dashboards with genuinely different filtering needs. Excluding grid=0 rows is correct for Dashboard 3 (qualifying vs. race pace, where an invalid grid position breaks the calculation), but wrong for Dashboards 1–2 (championship points, reliability rate), which need every race entry regardless of starting grid.
+
+**Fix:** removed the row-excluding `WHERE` clause entirely, keeping every row in the view. Moved the grid-validity check down into the `grid_delta` column itself, so invalid rows get a `NULL` in that one column instead of being dropped from the table altogether:
+```sql
+CASE WHEN f.grid > 0 THEN (f.grid - f.position_order) ELSE NULL END AS grid_delta
+```
+This lets Tableau's own filters decide, per-chart, whether to exclude null `grid_delta` values — appropriate for Dashboard 3, irrelevant for Dashboards 1–2, which now correctly retain every row.
+
+**Result after fix:** view row count and `.hyper` file row count both returned to 26,759, matching the warehouse exactly.
+
+---
+
+### Key lessons from Day 7
+1. **Tableau Public's extract-only connectivity model is a real, resume-worthy architectural constraint**, not an inconvenience to work around quietly — it directly shaped the decision to build a dedicated denormalized view and export pipeline rather than pointing Tableau at the warehouse directly.
+2. **Never assume a `WHERE` clause behaves as intended without checking the data's actual null/placeholder conventions.** A column can represent "no value" using a sentinel value (`0`) rather than a true `NULL` — and a filter written assuming otherwise can fail silently, producing a plausible-looking but wrong row count.
+3. **A single flattened BI table can still need per-chart-aware null handling.** Rather than filtering rows out of the whole extract, pushing the validity check down into a single column (leaving it `NULL` where invalid) preserves every row for charts that don't care, while still giving Tableau's own filters a clean way to exclude invalid values for the one chart that does.
+4. **Verifying a pipeline's output by count, not just by "the file exists,"** caught a real 1,638-row discrepancy that would otherwise have silently undercounted every chart built from this extract on Day 8 — the same "verify, don't assume" discipline applied since Day 2's null-count checks, now applied to a binary Tableau file instead of a CSV.
+
+### New concepts learned (added to running glossary)
+- **`.hyper` file** — Tableau's native binary extract format, required for Tableau Public since it cannot maintain live external database connections.
+- **`CREATE VIEW`** — a saved, reusable query that behaves like a virtual table, re-executing its definition on each reference rather than storing data itself.
+- **Denormalization for BI** — deliberately flattening a normalized (star schema) structure into one wide table with human-readable values, since BI tools generally perform better and are easier to build against with fewer live joins.
+- **Sentinel value vs. true `NULL`** — a placeholder value (like `0` meaning "no grid position") that represents missing/invalid data without being a genuine SQL `NULL` — filters checking `IS NULL` will not catch sentinel values, a common, easy-to-miss source of silent bugs.
+- **Hyper API (`HyperProcess`, `TableDefinition`, `Inserter`)** — Tableau's official Python library for programmatically creating and writing `.hyper` extract files outside of the Tableau Desktop UI.
