@@ -1068,14 +1068,13 @@ SELECT
         WHEN s.status IN ('Accident', 'Collision', 'Spun off', 'Collision damage') THEN 'Accident'
         ELSE 'Mechanical/Other'
     END AS status_category,
-    (f.grid - f.position_order) AS grid_delta
+    CASE WHEN f.grid > 0 THEN (f.grid - f.position_order) ELSE NULL END AS grid_delta
 FROM fact_race_results f
 JOIN dim_driver d ON f.driver_key = d.driver_key
 JOIN dim_constructor c ON f.constructor_key = c.constructor_key
 JOIN dim_race r ON f.race_key = r.race_key
 JOIN dim_circuit ci ON r.circuit_key = ci.circuit_key
-JOIN dim_status s ON f.status_key = s.status_key
-WHERE f.grid > 0 OR f.grid IS NULL;
+JOIN dim_status s ON f.status_key = s.status_key;
 ```
 
 **Key concepts:**
@@ -1083,6 +1082,28 @@ WHERE f.grid > 0 OR f.grid IS NULL;
 - **`d.forename || ' ' || d.surname AS driver_name`** — human-readable names substituted for surrogate keys, the essence of "denormalizing for BI": Tableau users shouldn't need to understand `driver_key = 847`, they need "Lewis Hamilton."
 - **Every dimension joined into one flat row** — combines what Day 5's separate analytical queries each did individually into a single wide result Tableau can consume without needing to understand the relational structure at all.
 - **`status_category`** reuses the Day 5/6 categorization logic directly inside the view, so Tableau's own calculated-field syntax doesn't need to reimplement it a third time.
+
+---
+
+### Bug 1: silent row loss from a `WHERE` clause that didn't do what it appeared to
+
+**What happened:** the initial `.hyper` extract contained **25,121 rows**, not the expected 26,759 (the known `fact_race_results` row count from Day 4) — a gap of 1,638 missing rows, only caught because the row count was explicitly re-verified after export rather than assumed correct just because the file existed.
+
+**Root cause:** the view's original filter,
+```sql
+WHERE f.grid > 0 OR f.grid IS NULL
+```
+was intended to mean "keep every row except invalid pit-lane starts." But the `grid` column stores "no grid position" as the literal integer `0`, not a true SQL `NULL` — meaning `f.grid IS NULL` was essentially always false, and the condition silently collapsed to just `WHERE f.grid > 0`, quietly dropping every pit-lane-start row from the *entire* extract — not just from grid-delta-specific calculations where that exclusion would have been appropriate.
+
+**Deeper design issue exposed:** this wasn't just a syntax mistake — it revealed that a single wide view was trying to simultaneously serve dashboards with genuinely different filtering needs. Excluding grid=0 rows is correct for Dashboard 3 (qualifying vs. race pace, where an invalid grid position breaks the calculation), but wrong for Dashboards 1–2 (championship points, reliability rate), which need every race entry regardless of starting grid.
+
+**Fix:** removed the row-excluding `WHERE` clause entirely, keeping every row in the view. Moved the grid-validity check down into the `grid_delta` column itself, so invalid rows get a `NULL` in that one column instead of being dropped from the table altogether:
+```sql
+CASE WHEN f.grid > 0 THEN (f.grid - f.position_order) ELSE NULL END AS grid_delta
+```
+This lets Tableau's own filters decide, per-chart, whether to exclude null `grid_delta` values — appropriate for Dashboard 3, irrelevant for Dashboards 1–2, which now correctly retain every row.
+
+**Result:** view row count returned to 26,759, matching the warehouse exactly.
 
 ---
 
@@ -1103,57 +1124,88 @@ def export_to_hyper():
                 columns=[
                     TableDefinition.Column("result_id", SqlType.int()),
                     TableDefinition.Column("driver_name", SqlType.text()),
-                    # ... remaining columns, one per SELECT column, typed explicitly
+                    # ... one Column per SELECT column, each explicitly typed
                 ]
             )
 
             connection.catalog.create_schema("Extract")
             connection.catalog.create_table(table_def)
 
-            df = df.astype(object).where(pd.notnull(df), None)
-
             with Inserter(connection, table_def) as inserter:
-                inserter.add_rows(rows=df.values.tolist())
+                inserter.add_rows(rows=rows)
                 inserter.execute()
 ```
 
 **Key concepts:**
 - **`HyperProcess`** — starts a temporary local background process running Tableau's own "Hyper" database engine, which knows how to write `.hyper` files directly.
 - **`TableDefinition(...)`** — Hyper files require an explicit schema declared up front, conceptually identical to Day 3's DDL, just expressed through the Hyper API's Python interface and its own type system (`SqlType.int()`, `SqlType.text()`, `SqlType.date()`, `SqlType.double()`) rather than raw SQL.
-- **`df.astype(object).where(pd.notnull(df), None)`** — a necessary conversion step: the Hyper API expects Python's native `None` for null values, not Pandas' `NaN`, so this line explicitly swaps one for the other before insertion.
-- **`Inserter(...).add_rows(...).execute()`** — the bulk-write mechanism, taking the DataFrame's rows as plain Python lists and writing them into the `.hyper` file in one batch operation.
-
-Verified the exported file existed (655 KB) and was readable by re-opening it and running a `COUNT(*)` query directly against it via the Hyper API — proof the write wasn't silently truncated or corrupted.
+- **`Inserter(...).add_rows(...).execute()`** — the bulk-write mechanism, taking prepared rows and writing them into the `.hyper` file in one batch operation.
 
 ---
 
-### Bug hit: silent row loss from a `WHERE` clause that didn't do what it appeared to
+### Bug 2: `TypeError`/`ValueError` from a Pandas float/int mismatch, persisting across multiple fix attempts
 
-**What happened:** the initial `.hyper` extract contained **25,121 rows**, not the expected 26,759 (the known `fact_race_results` row count from Day 4) — a gap of 1,638 missing rows, only caught because the row count was explicitly re-verified after export rather than assumed correct just because the file existed.
-
-**Root cause:** the view's filter,
-```sql
-WHERE f.grid > 0 OR f.grid IS NULL
+**What happened:** after fixing Bug 1 (allowing `grid_delta` to hold `NULL`), the export began failing with:
 ```
-was intended to mean "keep every row except invalid pit-lane starts." But the `grid` column stores "no grid position" as the literal integer `0`, not a true SQL `NULL` — meaning `f.grid IS NULL` was essentially always false, and the condition silently collapsed to just `WHERE f.grid > 0`, quietly dropping every pit-lane-start row from the *entire* extract — not just from grid-delta-specific calculations where that exclusion would have been appropriate.
-
-**Deeper design issue exposed:** this wasn't just a syntax mistake — it revealed that a single wide view was trying to simultaneously serve dashboards with genuinely different filtering needs. Excluding grid=0 rows is correct for Dashboard 3 (qualifying vs. race pace, where an invalid grid position breaks the calculation), but wrong for Dashboards 1–2 (championship points, reliability rate), which need every race entry regardless of starting grid.
-
-**Fix:** removed the row-excluding `WHERE` clause entirely, keeping every row in the view. Moved the grid-validity check down into the `grid_delta` column itself, so invalid rows get a `NULL` in that one column instead of being dropped from the table altogether:
-```sql
-CASE WHEN f.grid > 0 THEN (f.grid - f.position_order) ELSE NULL END AS grid_delta
+ValueError: Got an invalid value 0.0 for column "grid_delta", it must be an int instance
 ```
-This lets Tableau's own filters decide, per-chart, whether to exclude null `grid_delta` values — appropriate for Dashboard 3, irrelevant for Dashboards 1–2, which now correctly retain every row.
 
-**Result after fix:** view row count and `.hyper` file row count both returned to 26,759, matching the warehouse exactly.
+**Root cause:** once `grid_delta` could contain both whole numbers *and* nulls, Pandas silently upcast the entire column from an integer dtype to a **float** dtype — because Pandas' base integer type has no way to represent a missing value, so any integer column containing at least one null gets automatically converted to float. This meant a conceptually-integer value like `0` was actually being stored and passed to the Hyper API as the float `0.0`. The `TableDefinition` had declared `grid_delta` as strict `SqlType.int()`, so the Hyper API correctly rejected the float.
+
+**First fix attempt (insufficient):** converting just the `grid_delta` column to Python `int`/`None` via `.apply()`, run immediately before a separate DataFrame-wide line:
+```python
+df = df.astype(object).where(pd.notnull(df), None)
+```
+This still failed, with the *identical* error, across several retries — including after a full file rewrite and a hard notebook restart, which ruled out stale code/caching as the cause.
+
+**Diagnosing it properly:** rather than keep patching blindly, ran the export directly via `python -m src.tableau_export` from the terminal — deliberately removing the notebook/autoreload environment as a possible variable. The identical error still occurred, proving the bug was genuinely in the code's logic, not in notebook state.
+
+**Actual root cause identified:** the DataFrame-wide line `df.astype(object).where(pd.notnull(df), None)`, which ran *after* the per-column integer fix, was re-touching every column across the whole table — including the one already correctly converted — and Pandas' internal type re-inference during that whole-frame operation was silently reintroducing float representations for values that had just been correctly set as integers moments earlier. A per-column fix was being undone by a later DataFrame-wide operation.
+
+**Final fix — explicit per-value conversion, avoiding all DataFrame-wide dtype operations entirely:**
+```python
+COLUMN_TYPES = {
+    "result_id": "int", "grid_delta": "int", "points": "double",
+    "race_date": "date", "driver_name": "text",
+    # ... one entry per column, mapped to its Hyper type
+}
+
+def convert_value(value, col_type: str):
+    if pd.isna(value):
+        return None
+    if col_type == "int":
+        return int(value)
+    if col_type == "double":
+        return float(value)
+    if col_type == "date" and hasattr(value, "date"):
+        return value.date()
+    return value
+
+def build_rows(df: pd.DataFrame) -> list:
+    columns_order = list(COLUMN_TYPES.keys())
+    rows = []
+    for record in df[columns_order].itertuples(index=False, name=None):
+        row = [convert_value(v, COLUMN_TYPES[col]) for v, col in zip(record, columns_order)]
+        rows.append(row)
+    return rows
+```
+
+**Key concepts:**
+- **`pd.isna(value)` checked per-value, not per-DataFrame** — reliably catches `NaN`, `None`, and `NaT` (Pandas' null-date marker) uniformly, at the moment each individual value is handled, with no whole-table operation left to undo it afterward.
+- **`.itertuples(index=False, name=None)`** — iterates a DataFrame row by row, yielding plain Python tuples of raw values, explicitly in a specified column order — avoiding both the overhead and the surprising type-inference behavior of DataFrame-wide dtype casting.
+- **Trade-off accepted knowingly:** row-by-row Python conversion is slower than a vectorized Pandas operation, but for a one-time export step (not a tight performance-critical loop), predictability was judged more valuable than raw speed.
+
+**Result:** export succeeded cleanly — `26,759` rows pulled, converted, and written without error. Re-verified by reopening the `.hyper` file independently and running `COUNT(*)` directly against it, confirming the row count matched the warehouse exactly.
 
 ---
 
 ### Key lessons from Day 7
 1. **Tableau Public's extract-only connectivity model is a real, resume-worthy architectural constraint**, not an inconvenience to work around quietly — it directly shaped the decision to build a dedicated denormalized view and export pipeline rather than pointing Tableau at the warehouse directly.
 2. **Never assume a `WHERE` clause behaves as intended without checking the data's actual null/placeholder conventions.** A column can represent "no value" using a sentinel value (`0`) rather than a true `NULL` — and a filter written assuming otherwise can fail silently, producing a plausible-looking but wrong row count.
-3. **A single flattened BI table can still need per-chart-aware null handling.** Rather than filtering rows out of the whole extract, pushing the validity check down into a single column (leaving it `NULL` where invalid) preserves every row for charts that don't care, while still giving Tableau's own filters a clean way to exclude invalid values for the one chart that does.
-4. **Verifying a pipeline's output by count, not just by "the file exists,"** caught a real 1,638-row discrepancy that would otherwise have silently undercounted every chart built from this extract on Day 8 — the same "verify, don't assume" discipline applied since Day 2's null-count checks, now applied to a binary Tableau file instead of a CSV.
+3. **Pandas silently changes a column's dtype when nulls are introduced into what was previously a clean integer column** — a genuinely common, easy-to-miss source of downstream type errors in any tool (like the Hyper API) that enforces strict typing.
+4. **DataFrame-wide dtype operations can silently undo an already-correct per-column fix.** When a targeted fix doesn't hold, the right response is to remove ambiguity entirely — explicit, per-value conversion — rather than keep patching the same DataFrame-wide operation repeatedly.
+5. **Eliminating the notebook/autoreload environment as a variable (by running the exact same code via `python -m module` in the terminal) is a genuinely useful debugging technique** when an error persists identically across multiple supposed fixes — it separates "is my code actually wrong" from "is my execution environment stale," two very different problems that produce identical-looking symptoms.
+6. **Verifying a pipeline's output by count, not just by "the file exists" or "the script didn't crash,"** caught a real 1,638-row discrepancy that would otherwise have silently undercounted every chart built from this extract on Day 8 — the same "verify, don't assume" discipline applied since Day 2's null-count checks, now applied to a binary Tableau file instead of a CSV.
 
 ### New concepts learned (added to running glossary)
 - **`.hyper` file** — Tableau's native binary extract format, required for Tableau Public since it cannot maintain live external database connections.
@@ -1161,3 +1213,6 @@ This lets Tableau's own filters decide, per-chart, whether to exclude null `grid
 - **Denormalization for BI** — deliberately flattening a normalized (star schema) structure into one wide table with human-readable values, since BI tools generally perform better and are easier to build against with fewer live joins.
 - **Sentinel value vs. true `NULL`** — a placeholder value (like `0` meaning "no grid position") that represents missing/invalid data without being a genuine SQL `NULL` — filters checking `IS NULL` will not catch sentinel values, a common, easy-to-miss source of silent bugs.
 - **Hyper API (`HyperProcess`, `TableDefinition`, `Inserter`)** — Tableau's official Python library for programmatically creating and writing `.hyper` extract files outside of the Tableau Desktop UI.
+- **Integer column upcasting to float on null introduction** — a core Pandas behavior: a column of whole numbers automatically becomes a float dtype the moment any value in it becomes missing/null, since Pandas' base integer type cannot represent "no value."
+- **DataFrame-wide vs. per-value type conversion** — whole-table operations like `.astype(object)` can silently re-infer and override types across every column, including ones already correctly fixed; explicit per-value conversion (via `.itertuples()` and a manual conversion function) avoids this ambiguity entirely.
+- **Terminal execution as a debugging isolation technique** — running `python -m module_name` directly rules out notebook state/caching (autoreload staleness, leftover kernel variables) as the cause of a persistent bug, isolating whether the problem is in the code itself.
