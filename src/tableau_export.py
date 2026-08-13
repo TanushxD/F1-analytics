@@ -117,3 +117,17 @@ def export_to_hyper():
 
 if __name__ == "__main__":
     export_to_hyper()
+
+def export_to_csv():
+    """Exports the Tableau BI view to CSV — Tableau Public (free tier) cannot open
+    .hyper files directly, only Tableau Desktop/Professional can. CSV is the
+    standard workaround for Public users."""
+    df = pd.read_sql("SELECT * FROM vw_tableau_main", engine)
+    csv_path = OUTPUT_DIR / "f1_main_extract.csv"
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    df.to_csv(csv_path, index=False)
+    logger.info(f"CSV extract written to {csv_path} ({len(df)} rows)")
+
+if __name__ == "__main__":
+    export_to_hyper()
+    export_to_csv()
