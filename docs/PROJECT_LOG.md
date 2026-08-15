@@ -1216,3 +1216,132 @@ def build_rows(df: pd.DataFrame) -> list:
 - **Integer column upcasting to float on null introduction** — a core Pandas behavior: a column of whole numbers automatically becomes a float dtype the moment any value in it becomes missing/null, since Pandas' base integer type cannot represent "no value."
 - **DataFrame-wide vs. per-value type conversion** — whole-table operations like `.astype(object)` can silently re-infer and override types across every column, including ones already correctly fixed; explicit per-value conversion (via `.itertuples()` and a manual conversion function) avoids this ambiguity entirely.
 - **Terminal execution as a debugging isolation technique** — running `python -m module_name` directly rules out notebook state/caching (autoreload staleness, leftover kernel variables) as the cause of a persistent bug, isolating whether the problem is in the code itself.
+
+
+## Day 8 — Building Interactive Tableau Dashboards
+
+### The core question this day answers
+Day 7 produced a Tableau-ready extract. Day 8's job: actually build the three planned dashboards (Executive Overview, Constructor Reliability, Qualifying vs Race Pace) in Tableau Public, translating the KPI plan from `docs/kpi_definitions.md` into real, interactive charts.
+
+**Note:** this entry documents the dashboard-build process as of the current session — Dashboard 1 and 2 are complete, Dashboard 3 (Qualifying vs Race Pace) is built and functional, and work is in progress on a 4th "Executive Summary" dashboard with KPI ("BAN" — Big Ass Number) tiles. This log will be extended once that work concludes.
+
+---
+
+### Environment discovery: Tableau Public cannot open `.hyper` files directly
+
+**What happened:** attempting to open the Day 7 `.hyper` extract in Tableau Public produced: *"This workbook cannot be opened using Tableau Public. Upgrade to Tableau Professional to open this file."*
+
+**Root cause:** this is a genuine, hard product restriction — Tableau Public (the free tier) can only open certain file types (Excel, Text/CSV, JSON, Access, PDF, Spatial, Statistical); raw `.hyper` files require the paid Tableau Desktop/Professional to open directly, even though `.hyper` is Tableau's own native format.
+
+**Fix:** added a second export function to `src/tableau_export.py`:
+```python
+def export_to_csv():
+    df = pd.read_sql("SELECT * FROM vw_tableau_main", engine)
+    csv_path = OUTPUT_DIR / "f1_main_extract.csv"
+    df.to_csv(csv_path, index=False)
+    logger.info(f"CSV extract written to {csv_path} ({len(df)} rows)")
+```
+Both `export_to_hyper()` and `export_to_csv()` now run when the script executes, producing two output formats: the `.hyper` file (kept and documented as a demonstrated Hyper API skill) and a `.csv` (what Tableau Public actually connects to). Tableau Public opened the CSV without issue.
+
+**Lesson:** free-tier tool restrictions are a real, worth-documenting constraint — not a personal setup mistake. Building the Hyper API pipeline in Day 7 wasn't wasted effort even though Tableau Public can't use its output directly; it remains a legitimate, demonstrable skill, and the CSV fallback is a standard, well-known workaround real Tableau Public users rely on.
+
+---
+
+### Dashboard 1: Executive Championship Overview
+
+**Chart 1 — Championship Progression (cumulative points, line chart):**
+Built using `Round` (converted from Measure to Dimension, set to Continuous) on Columns, `Points` on Rows with a Quick Table Calculation → Running Total applied, and `Driver Name` on Color. Filtered to Year = 2024, Top 5 drivers by `SUM(Points)`.
+
+**Bugs hit while building this chart (several iterations):**
+1. **Fields landing on the wrong shelf** — `Driver Name` initially ended up on Rows instead of Color, and nothing was on Columns at all, producing a plain text table instead of a chart. Fixed by clearing all shelves and rebuilding field-by-field, confirming each landed correctly before proceeding.
+2. **`YEAR(Race Date)` on Columns collapsed the whole season to one x-axis point** — a line chart needs multiple x-axis values to draw a line between; using year-level granularity meant every driver's whole season collapsed to a single dot. Fixed by switching to `Round` instead, matching the grain already used in Day 5's SQL query.
+3. **`Round` defaulted to a Measure, not a Dimension** — this caused Tableau to `SUM()` round numbers together (producing an x-axis running 0–230+ instead of 1–24), since a Measure gets aggregated by default. Fixed via right-click → "Convert to Dimension," then setting the field to Continuous on Columns.
+4. **Running Total calculation reset multiple times** — swapping fields on Columns/Rows repeatedly cleared the Quick Table Calculation without warning; the visual symptom was a zigzagging line (an impossible pattern for a true running total, which should only ever increase) — a genuinely useful self-diagnosing visual cue once recognized.
+
+**Chart 2 — Constructor Wins & Podiums (bar chart):**
+Built two Tableau calculated fields mirroring Day 5/6's SQL/Pandas categorization logic:
+```
+Is Win:    IF [Finish Position] = 1 THEN 1 ELSE 0 END
+Is Podium: IF [Finish Position] <= 3 THEN 1 ELSE 0 END
+```
+`Constructor Name` on Rows, both fields on Columns (producing a grouped bar chart automatically), filtered to Year = 2024, sorted descending by wins. Validated against real history: Red Bull's win bar reflected their dominant 2023 season correctly in initial testing (21 of 22 wins).
+
+**Dashboard assembly bug:** the dashboard initially displayed both charts occupying only the left half of the canvas, leaving the right side blank. Root cause: the dashboard's **Size** setting was left on a responsive "Range" mode (`min 420x560 – max 650x860`) inherited from a template default, which didn't match how the charts were actually laid out. Fixed by switching Size to a fixed page format (A4 Landscape), then manually resizing each chart container to fill the corrected canvas.
+
+---
+
+### Dashboard 2: Constructor Reliability Deep-Dive
+
+**Chart 1 — Reliability Heatmap:**
+`Constructor Name` on Rows, `Year` on Columns, Mark type set to Square. Built a `Mechanical Failure Rate` calculated field:
+```
+SUM([Is Mechanical Failure]) / COUNT([Result Id])
+```
+matching the Day 5 SQL / Day 6 Pandas formula exactly, colored via a red sequential palette, formatted as a percentage.
+
+**Bug hit — showing 100+ years of tiny, mostly-defunct teams:** the initial heatmap included every constructor in F1 history back to 1945 (e.g., "Adams," "AFM," "Amon" — one-off teams from the sport's earliest, most fragmented era), producing an unreadable wall of over 100 rows. Fixed by filtering `Year` to a recent, relevant range (2019–2024), collapsing the chart down to ~10-15 currently-recognizable constructors — a genuinely more useful and portfolio-appropriate scope than raw historical completeness.
+
+Validated against known results: Ferrari showed the darkest (highest failure rate) square, Red Bull the lightest — consistent with Day 5's SQL findings and real 2023 reliability reputations.
+
+**Chart 2 — Finish Rate by Constructor (bar chart):**
+Built a complementary `Finish Rate` field reusing the existing failure-rate logic rather than duplicating similar logic from scratch:
+```
+1 - SUM([Is Mechanical Failure]) / COUNT([Result Id])
+```
+Colored with approximate real F1 team colors (hex-matched manually via "Edit Colors..."), formatted as percentage, sorted descending.
+
+---
+
+### Dashboard 3: Qualifying vs Race Pace
+
+**The most technically involved chart of the project.** `Grid` on Columns, `Finish Position` on Rows, `Driver Name` on Color, mark type Circle.
+
+**Bug 1 — chart collapsed to 6 aggregated dots instead of individual races:** Tableau, by default, aggregates any measure placed on a shelf. With only `Driver Name` providing grouping context, every driver's entire season (~22-24 races) was summed into a single point, producing wildly unrealistic axis ranges (Grid up to 1300+, Finish Position up to 400) instead of real single-race values (1–20).
+
+**First fix attempt (partial):** added `Round` to the Detail shelf, intending to force per-race granularity. This reduced the aggregation somewhat (6 marks → 29 marks) but still didn't produce fully correct individual-race values — axes still showed inflated numbers (up to 350-400), indicating some aggregation was still occurring.
+
+**Actual fix:** Analysis menu → unchecked **"Aggregate Measures"** globally. This is a dedicated Tableau setting that disables automatic aggregation entirely, forcing every individual row to plot as its own mark regardless of what's on Detail. After this, `Round` was removed from Detail (no longer needed), and the chart correctly showed ~460 individual marks with realistic 0–22 axis ranges on both dimensions.
+
+**Lesson:** adding granularity fields to Detail is the *partial*, commonly-suggested fix for over-aggregated Tableau charts, but the more direct and reliable fix for a true scatter plot (one mark per raw row, no aggregation at all) is the "Aggregate Measures" toggle — worth knowing as the first thing to check, not a last resort.
+
+**Reference diagonal line:** created a calculated field `Diagonal Reference` equal to `[Grid]`, placed it on Rows alongside `Finish Position`, and combined the two into a single chart via Tableau's **Dual Axis** feature — conceptually pairing two independent y-axes sharing the same x-axis, so the reference line and the scatter points render on the same visual plane. Styled the reference line as thin, gray, and dashed to visually distinguish it from actual data points.
+
+**Reading the finished chart:** points below the diagonal indicate a driver finished better than they qualified (a positive grid-to-finish delta, race-day gains); points above indicate the reverse — directly, visually representing the same `grid - position_order` metric computed analytically back in Day 5's SQL query and Day 6's Pandas feature.
+
+---
+
+### In progress: Executive Summary dashboard with KPI ("BAN") tiles
+
+Started building large single-number "BAN" (Big Ass Number) tiles — Season Leader, Total Races, Points Gap — as a fourth, more executive-style dashboard, inspired by wanting a denser, more "at-a-glance" summary view alongside the three detailed dashboards.
+
+**Bug hit and being actively debugged:** a `KPI - Season Leader` tile (built via Top-1-by-points filter on `Driver Name`, displayed as plain large text) displayed **"Lewis Hamilton"** for the 2024 season — factually wrong; Hamilton finished 7th in the real 2024 championship, and the actual champion was Max Verstappen. Cross-checked directly against the warehouse via SQL:
+```sql
+SELECT d.forename, d.surname, SUM(f.points) as total_points
+FROM fact_race_results f
+JOIN dim_driver d ON f.driver_key = d.driver_key
+JOIN dim_race r ON f.race_key = r.race_key
+WHERE r.year = 2024
+GROUP BY d.forename, d.surname
+ORDER BY total_points DESC
+LIMIT 5
+```
+confirming the correct top 5 (Verstappen 399, Norris 344, Leclerc 327, Piastri 265, Sainz 262) — proving the warehouse data itself is correct and the bug is isolated to the Tableau worksheet's filter configuration. Leading hypothesis: this worksheet was created via "Duplicate Sheet" from an earlier scatter-plot sheet that had a manual `Driver Name` filter restricted to 5 specific drivers (Leclerc, Alonso, Norris, Hamilton, Verstappen) — meaning the Top-1 calculation may be resolving against that pre-restricted list rather than the full driver pool, or an additional stale filter condition is layered underneath the intended Top-1 filter. Diagnosis in progress.
+
+**Lesson so far:** cross-validating a suspicious dashboard number directly against the warehouse via SQL — rather than assuming a UI-built chart is correct just because it renders — caught a real, would-have-been-embarrassing factual error before publishing. The same "verify, don't assume" discipline from every previous day, now applied to BI tooling rather than code.
+
+---
+
+### Key lessons from Day 8 (so far)
+1. **Tool-tier restrictions (Tableau Public vs. Desktop/Professional) are real architectural constraints worth documenting explicitly**, not silently worked around — the dual `.hyper`/`.csv` export approach is a legitimate, explainable engineering decision.
+2. **Tableau's default aggregation behavior is the root cause of most "my chart looks wrong" confusion** — recognizing when a chart is unexpectedly aggregating (unrealistic axis ranges, fewer marks than expected) and knowing the "Aggregate Measures" toggle is the direct fix, not just a fallback.
+3. **A running total that visually decreases, or a scatter plot with suspiciously round/large axis values, are self-diagnosing signals** — the shape of a wrong chart often points directly at the specific misconfiguration causing it.
+4. **Duplicating a worksheet as a starting point for a new chart carries hidden risk**: filters, calculated fields, and shelf assignments from the original sheet persist invisibly until explicitly checked and cleared — a real, demonstrated cause of Day 8's most serious visible bug (an incorrect KPI figure).
+5. **Any single-number "headline" KPI figure needs independent verification before being trusted** — exactly the kind of number a recruiter or hiring manager might look at first, making a silent error here more costly than in a detailed chart most viewers would sanity-check less.
+
+### New concepts learned (added to running glossary)
+- **BAN tile ("Big Ass Number")** — a dashboard element showing one large, prominent figure, typically built in Tableau as a Text mark with all axis-producing fields removed from Rows/Columns.
+- **Continuous vs. Discrete fields in Tableau** — continuous (green pill) fields allow smooth line connections across values; discrete (blue pill) fields are treated as separate categories. A common source of "why won't my line chart connect" bugs.
+- **Aggregate Measures toggle (Analysis menu)** — a global Tableau setting; unchecking it disables automatic aggregation, causing every raw row to plot as its own mark — the direct fix for building a true scatter plot.
+- **Dual Axis** — combines two independent measures (here, `Finish Position` and a calculated `Diagonal Reference`) onto the same visual plane while keeping separate underlying axes, enabling a reference line to be overlaid on a scatter plot.
+- **Quick Table Calculation (Running Total)** — Tableau's built-in, UI-driven equivalent of a SQL window function's `SUM() OVER (ORDER BY ...)`; conceptually identical, accessed via a menu instead of syntax, but fragile to shelf reconfiguration (can silently reset).
+- **Tableau Calculated Field `IF ... THEN ... ELSE ... END`** — Tableau's own conditional expression syntax, directly analogous to SQL's `CASE WHEN` and Python's `if/elif/else`, used to translate the same categorization logic (podium/win flags, failure categorization) consistently across every tool used in the project so far.

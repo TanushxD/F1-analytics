@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 
 <!-- build 20262.26.0708.1337                               -->
-<workbook _.fcp.WorkbookFingerprinting.true...author-id='c8c575fd06cd81ec7be9bbe16a502e1beaa692e643fefbf175d9467b68d78a6a' _.fcp.WorkbookFingerprinting.true...creator-author-id='c8c575fd06cd81ec7be9bbe16a502e1beaa692e643fefbf175d9467b68d78a6a' _.fcp.WorkbookFingerprinting.true...creator-license-type='public' _.fcp.WorkbookFingerprinting.true...creator-machine-id='e4dcf62be59b6fcd7aa9e3553d63c4aa7dea313bb5ce4fdad9e14cc72d4606a6' _.fcp.WorkbookFingerprinting.true...license-type='public' _.fcp.WorkbookFingerprinting.true...machine-id='e4dcf62be59b6fcd7aa9e3553d63c4aa7dea313bb5ce4fdad9e14cc72d4606a6' original-version='18.1' source-build='2026.2.1 (20262.26.0708.1337)' source-platform='win' version='18.1' xml:base='https://public.tableau.com' xmlns:user='http://www.tableausoftware.com/xml/user'>
+<workbook _.fcp.WorkbookFingerprinting.true...author-id='e4dcf62be59b6fcd7aa9e3553d63c4aa7dea313bb5ce4fdad9e14cc72d4606a6' _.fcp.WorkbookFingerprinting.true...creator-author-id='c8c575fd06cd81ec7be9bbe16a502e1beaa692e643fefbf175d9467b68d78a6a' _.fcp.WorkbookFingerprinting.true...creator-license-type='public' _.fcp.WorkbookFingerprinting.true...creator-machine-id='e4dcf62be59b6fcd7aa9e3553d63c4aa7dea313bb5ce4fdad9e14cc72d4606a6' _.fcp.WorkbookFingerprinting.true...license-type='public' _.fcp.WorkbookFingerprinting.true...machine-id='e4dcf62be59b6fcd7aa9e3553d63c4aa7dea313bb5ce4fdad9e14cc72d4606a6' original-version='18.1' source-build='2026.2.1 (20262.26.0708.1337)' source-platform='win' version='18.1' xml:base='https://public.tableau.com' xmlns:user='http://www.tableausoftware.com/xml/user'>
   <document-format-change-manifest>
     <AccessibleZoneTabOrder />
     <AnimationOnByDefault />
@@ -12,6 +12,7 @@
     <ObjectModelEncapsulateLegacy />
     <ObjectModelExtractV2 />
     <ObjectModelTableType />
+    <PatternedLineMarks />
     <SchemaViewerObjectModel />
     <SetMembershipControl />
     <SheetIdentifierTracking />
@@ -358,6 +359,7 @@
       <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
       <column-instance column='[constructor_name]' derivation='None' name='[none:constructor_name:nk]' pivot='key' type='nominal' />
       <column-instance column='[driver_name]' derivation='None' name='[none:driver_name:nk]' pivot='key' type='nominal' />
+      <column-instance column='[Calculation_1155071051747328]' derivation='Sum' name='[sum:Calculation_1155071051747328:qk]' pivot='key' type='quantitative' />
       <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
         <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='C:/Users/tanus/AppData/Local/Temp/TableauTemp/#TableauTemp_022eow306oy7j217kkqzn1sfxjf7.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='08/13/2026 07:47:32 PM' username='tableau_internal_user'>
           <relation name='Extract' table='[Extract].[Extract]' type='table' />
@@ -3261,6 +3263,11 @@
               <bucket>&quot;McLaren&quot;</bucket>
             </map>
           </encoding>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk]&quot;</bucket>
+            </map>
+          </encoding>
         </style-rule>
       </style>
       <semantic-values>
@@ -3600,7 +3607,15 @@
       </table>
       <simple-id uuid='{C23BEEA6-0422-45E5-BFA9-1DB748E6566E}' />
     </worksheet>
-    <worksheet name='Sheet 5'>
+    <worksheet name='Qualifying vs Race Pace'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#000000' fontname='Benton Sans Book'>Grid Position vs Finish Position (2023, Selected Drivers)</run>
+            <run>&#10;&lt;Sheet Name&gt;</run>
+          </formatted-text>
+        </title>
+      </layout-options>
       <table>
         <view>
           <datasources>
@@ -3614,9 +3629,7 @@
             <column caption='Finish Position' datatype='integer' name='[finish_position]' role='measure' type='quantitative' />
             <column caption='Grid' datatype='integer' name='[grid]' role='measure' type='quantitative' />
             <column-instance column='[driver_name]' derivation='None' name='[none:driver_name:nk]' pivot='key' type='nominal' />
-            <column-instance column='[round]' derivation='None' name='[none:round:ok]' pivot='key' type='ordinal' />
             <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
-            <column aggregation='Sum' caption='Round' datatype='integer' name='[round]' role='dimension' type='ordinal' />
             <column-instance column='[Calculation_1155071051747328]' derivation='Sum' name='[sum:Calculation_1155071051747328:qk]' pivot='key' type='quantitative' />
             <column-instance column='[finish_position]' derivation='Sum' name='[sum:finish_position:qk]' pivot='key' type='quantitative' />
             <column-instance column='[grid]' derivation='Sum' name='[sum:grid:qk]' pivot='key' type='quantitative' />
@@ -3633,17 +3646,19 @@
           </filter>
           <filter class='quantitative' column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]' included-values='in-range'>
             <min>2023</min>
-            <max>2024</max>
+            <max>2023</max>
           </filter>
           <slices>
             <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]</column>
             <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]</column>
           </slices>
-          <aggregation value='true' />
+          <aggregation value='false' />
         </view>
         <style>
           <style-rule element='axis'>
             <encoding attr='space' class='0' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk]' field-type='quantitative' fold='true' scope='rows' type='space' />
+            <format attr='width' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:finish_position:qk]' value='64' />
+            <format attr='width' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk]' value='64' />
           </style-rule>
         </style>
         <panes>
@@ -3658,6 +3673,13 @@
             <style>
               <style-rule element='mark'>
                 <format attr='mark-transparency' value='193' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='630' />
+                <format attr='maxwidth' value='630' />
+                <format attr='minheight' value='640' />
+                <format attr='maxheight' value='640' />
+                <format attr='aspect' value='0' />
               </style-rule>
             </style>
           </pane>
@@ -3681,13 +3703,31 @@
               <breakdown value='auto' />
             </view>
             <mark class='Line' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
             <encodings>
               <color column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' />
-              <lod column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:round:ok]' />
             </encodings>
+            <customized-tooltip>
+              <formatted-text>
+                <run fontcolor='#757575'>Driver Name:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#757575'>Grid:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:grid:qk]>]]></run>
+                <run>Æ&#10;</run>
+                <run bold='true'>Round: &lt;Round&gt;</run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#000000' fontname='Benton Sans Book'><![CDATA[Finish Position: <[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:finish_position:qk]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#757575'>Diagonal Reference:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk]>]]></run>
+              </formatted-text>
+            </customized-tooltip>
             <style>
               <style-rule element='mark'>
-                <format attr='mark-transparency' value='193' />
+                <format attr='mark-transparency' value='208' />
+                <format attr='mark-line-pattern' value='dashed' />
+                <format attr='size' value='0.55972373485565186' />
               </style-rule>
             </style>
           </pane>
@@ -3699,6 +3739,112 @@
     </worksheet>
   </worksheets>
   <dashboards>
+    <dashboard enable-sort-zone-taborder='true' name='2023 Qualifying vs Race Pace '>
+      <style />
+      <size maxheight='827' maxwidth='1169' minheight='827' minwidth='1169' preset-index='16' sizing-mode='fixed' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98066' id='7' param='horz' type-v2='layout-flow' w='98632' x='684' y='967'>
+            <zone h='98066' id='5' type-v2='layout-basic' w='85373' x='684' y='967'>
+              <zone h='49033' id='3' name='Qualifying vs Race Pace' w='85373' x='684' y='967'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='49033' id='10' name='Constructor Wins &amp; Podiums' w='85373' x='684' y='50000'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+            <zone fixed-size='155' h='98066' id='6' is-fixed='true' param='vert' type-v2='layout-flow' w='13259' x='86057' y='967'>
+              <zone h='16324' id='8' name='Qualifying vs Race Pace' pane-specification-id='1' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]&#10;[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type-v2='color' w='13259' x='86057' y='967'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='6167' id='9' name='Qualifying vs Race Pace' pane-specification-id='2' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type-v2='color' w='13259' x='86057' y='17291'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='750' minheight='750' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='12' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98066' id='11' param='vert' type-v2='layout-flow' w='98632' x='684' y='967'>
+                <zone fixed-size='280' h='49033' id='3' is-fixed='true' name='Qualifying vs Race Pace' w='85373' x='684' y='967'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='16324' id='8' name='Qualifying vs Race Pace' pane-specification-id='1' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]&#10;[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type-v2='color' w='13259' x='86057' y='967'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='6167' id='9' name='Qualifying vs Race Pace' pane-specification-id='2' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type-v2='color' w='13259' x='86057' y='17291'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='49033' id='10' is-fixed='true' name='Constructor Wins &amp; Podiums' w='85373' x='684' y='50000'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{B4C373F0-C586-4AE4-BDD7-030D05B3559D}' />
+    </dashboard>
     <dashboard enable-sort-zone-taborder='true' name='Constructor Reliability Deep-Dive'>
       <style />
       <size maxheight='827' maxwidth='1169' minheight='827' minwidth='1169' preset-index='16' sizing-mode='fixed' />
@@ -3754,8 +3900,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='750' minheight='750' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='14' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98066' id='13' param='vert' type-v2='layout-flow' w='98632' x='684' y='967'>
+            <zone h='100000' id='18' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98066' id='17' param='vert' type-v2='layout-flow' w='98632' x='684' y='967'>
                 <zone fixed-size='280' h='48973' id='3' is-fixed='true' name='Constructor Reliability Heatmap' w='85373' x='684' y='967'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3852,8 +3998,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='700' minheight='700' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='25' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98066' id='24' param='vert' type-v2='layout-flow' w='98632' x='684' y='967'>
+            <zone h='100000' id='29' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='84000' id='28' param='vert' type-v2='layout-flow' w='84000' x='8000' y='8000'>
                 <zone fixed-size='280' h='49029' id='3' is-fixed='true' name='Championship Progression' w='83063' x='684' y='967'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3895,7 +4041,7 @@
       <simple-id uuid='{CF9FE5AF-555B-43B8-AB8A-68CBE7E2E645}' />
     </dashboard>
   </dashboards>
-  <windows source-height='37'>
+  <windows saved-dpi-scale-factor='1.25' source-height='37'>
     <window class='worksheet' name='Championship Progression'>
       <cards>
         <edge name='left'>
@@ -4021,7 +4167,7 @@
       <active id='5' />
       <simple-id uuid='{9666E3B5-7592-4988-9546-3654E8332C86}' />
     </window>
-    <window class='worksheet' maximized='true' name='Sheet 5'>
+    <window class='worksheet' name='Qualifying vs Race Pace'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -4049,6 +4195,16 @@
         </edge>
       </cards>
       <simple-id uuid='{CFF39DBC-6137-4FAD-8EF4-B6C4782CA98A}' />
+    </window>
+    <window class='dashboard' maximized='true' name='2023 Qualifying vs Race Pace '>
+      <viewpoints>
+        <viewpoint name='Constructor Wins &amp; Podiums' />
+        <viewpoint name='Qualifying vs Race Pace'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='10' />
+      <simple-id uuid='{28B0C616-E77C-49DC-9A40-347BB11F6BE7}' />
     </window>
   </windows>
 </workbook>
