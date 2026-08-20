@@ -1,0 +1,4336 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20262.26.0708.1337                               -->
+<workbook _.fcp.WorkbookFingerprinting.true...author-id='e4dcf62be59b6fcd7aa9e3553d63c4aa7dea313bb5ce4fdad9e14cc72d4606a6' _.fcp.WorkbookFingerprinting.true...creator-author-id='c8c575fd06cd81ec7be9bbe16a502e1beaa692e643fefbf175d9467b68d78a6a' _.fcp.WorkbookFingerprinting.true...creator-license-type='public' _.fcp.WorkbookFingerprinting.true...creator-machine-id='e4dcf62be59b6fcd7aa9e3553d63c4aa7dea313bb5ce4fdad9e14cc72d4606a6' _.fcp.WorkbookFingerprinting.true...license-type='public' _.fcp.WorkbookFingerprinting.true...machine-id='e4dcf62be59b6fcd7aa9e3553d63c4aa7dea313bb5ce4fdad9e14cc72d4606a6' original-version='18.1' source-build='2026.2.1 (20262.26.0708.1337)' source-platform='win' version='18.1' xml:base='https://public.tableau.com' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <AccessibleZoneTabOrder />
+    <AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <IntuitiveSorting />
+    <IntuitiveSorting_SP2 />
+    <MarkAnimation />
+    <ObjectModelEncapsulateLegacy />
+    <ObjectModelExtractV2 />
+    <ObjectModelTableType />
+    <PatternedLineMarks />
+    <SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <SortTagCleanup />
+    <VConnDownstreamExtractsWithWarnings />
+    <WindowsPersistSimpleIdentifiers />
+    <_.fcp.WorkbookFingerprinting.true...WorkbookFingerprinting />
+  </document-format-change-manifest>
+  <repository-location id='f1_dashboard_17866491788750' path='/workbooks' revision='1.1' />
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='f1_main_extract' inline='true' name='federated.1n2p4q403w5ynf1266lhp1tcm6wu' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='f1_main_extract' name='textscan.130huzw0r517vs15sldgt14mh3c4'>
+            <connection class='textscan' directory='C:/Users/tanus/Music/F1-analytics/dashboards/tableau' filename='f1_main_extract.csv' password='' server='' workgroup-auth-mode='as-is' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.130huzw0r517vs15sldgt14mh3c4' name='f1_main_extract.csv' table='[f1_main_extract#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_IN' separator=','>
+            <column datatype='integer' name='result_id' ordinal='0' />
+            <column datatype='string' name='driver_name' ordinal='1' />
+            <column datatype='string' name='driver_nationality' ordinal='2' />
+            <column datatype='string' name='constructor_name' ordinal='3' />
+            <column datatype='string' name='constructor_nationality' ordinal='4' />
+            <column datatype='string' name='circuit_name' ordinal='5' />
+            <column datatype='string' name='circuit_country' ordinal='6' />
+            <column datatype='integer' name='year' ordinal='7' />
+            <column datatype='integer' name='round' ordinal='8' />
+            <column datatype='date' name='race_date' ordinal='9' />
+            <column datatype='string' name='race_name' ordinal='10' />
+            <column datatype='integer' name='grid' ordinal='11' />
+            <column datatype='integer' name='finish_position' ordinal='12' />
+            <column datatype='real' name='points' ordinal='13' />
+            <column datatype='integer' name='laps' ordinal='14' />
+            <column datatype='string' name='status' ordinal='15' />
+            <column datatype='string' name='status_category' ordinal='16' />
+            <column datatype='real' name='grid_delta' ordinal='17' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_GB&quot;</attribute>
+              <attribute datatype='string' name='currency'>&quot;₹&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_IN&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>result_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[result_id]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>result_id</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>driver_name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[driver_name]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>driver_name</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>driver_nationality</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[driver_nationality]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>driver_nationality</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>constructor_name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[constructor_name]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>constructor_name</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>constructor_nationality</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[constructor_nationality]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>constructor_nationality</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>circuit_name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[circuit_name]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>circuit_name</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>circuit_country</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[circuit_country]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>circuit_country</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>year</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[year]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>year</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>round</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[round]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>round</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>race_date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[race_date]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>race_date</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>race_name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[race_name]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>race_name</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>grid</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[grid]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>grid</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>finish_position</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[finish_position]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>finish_position</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>points</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[points]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>points</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>laps</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[laps]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>laps</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>status</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[status]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>status</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>status_category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[status_category]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>status_category</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>grid_delta</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[grid_delta]</local-name>
+            <parent-name>[f1_main_extract.csv]</parent-name>
+            <remote-alias>grid_delta</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Is Podium' datatype='integer' name='[Calculation_0395308276121600]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [finish_position] &lt;= 3 THEN 1 ELSE 0 END' />
+      </column>
+      <column caption='Is Win' datatype='integer' name='[Calculation_0395308276228097]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [finish_position] = 1 THEN 1 ELSE 0 END' />
+      </column>
+      <column caption='Is Mechanical Failure' datatype='integer' name='[Calculation_0395308281712642]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [status_category] = &quot;Mechanical/Other&quot; THEN 1 ELSE 0 END' />
+      </column>
+      <column caption='Mechanical Failure Rate' datatype='real' name='[Calculation_0395308282032131]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([Calculation_0395308281712642]) / COUNT([result_id])' />
+      </column>
+      <column caption='Finish Rate' datatype='real' name='[Calculation_0395308285964292]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='1 - SUM([Calculation_0395308281712642]) / COUNT([result_id])' />
+      </column>
+      <column caption='Is Leader' datatype='integer' name='[Calculation_0404656446357504]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [driver_name] = &quot;Max Verstappen&quot; THEN 1 ELSE 0 END' />
+      </column>
+      <column caption='Diagonal Reference' datatype='integer' name='[Calculation_1155071051747328]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='[grid]' />
+      </column>
+      <column caption='f1_main_extract.csv' datatype='table' name='[__tableau_internal_object_id__].[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]' role='measure' type='quantitative' />
+      <column caption='Circuit Country' datatype='string' name='[circuit_country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
+      <column caption='Circuit Name' datatype='string' name='[circuit_name]' role='dimension' type='nominal' />
+      <column caption='Constructor Name' datatype='string' name='[constructor_name]' role='dimension' type='nominal' />
+      <column caption='Constructor Nationality' datatype='string' name='[constructor_nationality]' role='dimension' type='nominal' />
+      <column caption='Driver Name' datatype='string' name='[driver_name]' role='dimension' type='nominal' />
+      <column caption='Driver Nationality' datatype='string' name='[driver_nationality]' role='dimension' type='nominal' />
+      <column caption='Finish Position' datatype='integer' name='[finish_position]' role='measure' type='quantitative' />
+      <column caption='Grid' datatype='integer' name='[grid]' role='measure' type='quantitative' />
+      <column caption='Grid Delta' datatype='real' name='[grid_delta]' role='measure' type='quantitative' />
+      <column caption='Laps' datatype='integer' name='[laps]' role='measure' type='quantitative' />
+      <column caption='Points' datatype='real' name='[points]' role='measure' type='quantitative' />
+      <column caption='Race Date' datatype='date' name='[race_date]' role='dimension' type='ordinal' />
+      <column caption='Race Name' datatype='string' name='[race_name]' role='dimension' type='nominal' />
+      <column caption='Result Id' datatype='integer' name='[result_id]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Round' datatype='integer' name='[round]' role='dimension' type='ordinal' />
+      <column caption='Status' datatype='string' name='[status]' role='dimension' type='nominal' />
+      <column caption='Status Category' datatype='string' name='[status_category]' role='dimension' type='nominal' />
+      <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+      <column-instance column='[constructor_name]' derivation='None' name='[none:constructor_name:nk]' pivot='key' type='nominal' />
+      <column-instance column='[driver_name]' derivation='None' name='[none:driver_name:nk]' pivot='key' type='nominal' />
+      <column-instance column='[Calculation_1155071051747328]' derivation='Sum' name='[sum:Calculation_1155071051747328:qk]' pivot='key' type='quantitative' />
+      <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='C:/Users/tanus/AppData/Local/Temp/TableauTemp/#TableauTemp_022eow306oy7j217kkqzn1sfxjf7.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='08/13/2026 07:47:32 PM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>result_id</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[result_id]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>result_id</remote-alias>
+              <ordinal>0</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>26759</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>driver_name</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[driver_name]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>driver_name</remote-alias>
+              <ordinal>1</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>747</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>driver_nationality</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[driver_nationality]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>driver_nationality</remote-alias>
+              <ordinal>2</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>46</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>constructor_name</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[constructor_name]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>constructor_name</remote-alias>
+              <ordinal>3</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>204</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>constructor_nationality</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[constructor_nationality]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>constructor_nationality</remote-alias>
+              <ordinal>4</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>17</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>circuit_name</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[circuit_name]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>circuit_name</remote-alias>
+              <ordinal>5</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>97</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>circuit_country</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[circuit_country]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>circuit_country</remote-alias>
+              <ordinal>6</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>41</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>year</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[year]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>year</remote-alias>
+              <ordinal>7</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>75</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>round</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[round]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>round</remote-alias>
+              <ordinal>8</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>26</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>race_date</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[race_date]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>race_date</remote-alias>
+              <ordinal>9</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>2432</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>race_name</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[race_name]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>race_name</remote-alias>
+              <ordinal>10</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>71</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>grid</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[grid]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>grid</remote-alias>
+              <ordinal>11</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>28</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>finish_position</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[finish_position]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>finish_position</remote-alias>
+              <ordinal>12</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>37</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>points</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[points]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>points</remote-alias>
+              <ordinal>13</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>27</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>laps</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[laps]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>laps</remote-alias>
+              <ordinal>14</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>146</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>status</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[status]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>status</remote-alias>
+              <ordinal>15</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>121</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>status_category</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[status_category]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>status_category</remote-alias>
+              <ordinal>16</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>grid_delta</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[grid_delta]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>grid_delta</remote-alias>
+              <ordinal>17</ordinal>
+              <family>f1_main_extract.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>59</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout common-percentage='1' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' user-set-layout-v2='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:driver_name:nk]' type='palette'>
+            <map to='#499894'>
+              <bucket>&quot;Alain de Changy&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Alex Ribeiro&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Andrea Montermini&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Bernard Collomb&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Bob Christie&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Brian Naylor&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Carlos Sainz&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Christijan Albers&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Damon Hill&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Dempsey Wilson&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Doug Serrurier&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Emanuele Pirro&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Esteban Gutiérrez&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;François Mazet&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Geoff Lees&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Gianmaria Bruni&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Gunnar Nilsson&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Heini Walter&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Ian Burgess&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Jackie Stewart&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Jean-Éric Vergne&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Jimmy Daywalt&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;John Fitch&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Johnny Thomson&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Karl Kling&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Kurt Ahrens&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Lloyd Ruby&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Manfred Winkelhock&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Masten Gregory&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Mika Salo&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Narain Karthikeyan&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Oliver Bearman&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Pat Flaherty&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Pedro Rodríguez&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Philippe Alliot&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Ray Reed&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Rob Schroeder&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Roger Loyer&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Scott Speed&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Stuart Lewis-Evans&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Tom Jones&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Toulo de Graffenried&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Warwick Brown&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Adolf Brudes&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Alberto Uria&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;André Lotterer&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Arthur Owen&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Bill Mackey&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Boy Lunger&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Carl Forberg&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Chris Bristow&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Colin Chapman&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;David Coulthard&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Dieter Quester&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Eddie Sachs&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Ernesto Brambilla&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Franck Lagorce&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Gaetano Starrabba&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Gerhard Berger&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Giovanni de Riu&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Hans von Stuck&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Hernando da Silva Ramos&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Jack Doohan&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Jarno Trulli&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Jim Crawford&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Jody Scheckter&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Johnny Boyd&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Juan Manuel Bordeu&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Ken Wharton&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Len Sutton&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Luigi Musso&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Mark Webber&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Michael Bleekemolen&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Mike Taylor&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Nigel Mansell&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Ottorino Volonterio&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Paul Goldsmith&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Peter Ryan&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Pierre-Henri Raphanel&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Ricardo Zunino&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Roberto Mieres&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Rudolf Krause&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Slim Borgudd&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Tiago Monteiro&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Tony Marsh&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Vitaly Petrov&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Zsolt Baumgartner&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Aguri Suzuki&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Alessandro Pesenti-Rossi&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;André Testut&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Basil van Rooyen&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Bill Whitehouse&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Brian Gubby&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Carlo Franchi&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Christian Danner&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Corrado Fabi&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;David Piper&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Don Branson&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Elio de Angelis&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Ernie Pieterse&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Franco Forini&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Gene Force&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Giacomo Russo&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Graham McRae&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Harry Blanchard&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Howden Ganley&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Jackie Holmes&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Jean Lucas&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Jim Rathmann&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;John Barber&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Johnny Herbert&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Julian Bailey&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Kevin Magnussen&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Leslie Marr&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Luis Pérez-Sala&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Martin Donnelly&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Michele Alboreto&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Moisés Solana&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Nino Vaccarella&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Paolo Barilla&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Pedro Chaves&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Phil Cade&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Ralf Schumacher&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Richard Robarts&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Rodger Ward&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Sam Hanks&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Stéphane Sarrazin&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Timmy Mayer&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Tony Trimmer&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Walt Ader&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Alan Rees&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Alexander Rossi&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Anthony Foyt&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Bertil Roos&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Bob Said&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Bruce Johnstone&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Charles de Tornaco&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Chuck Weyant&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Danny Kladis&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Derek Bell&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Duke Nalon&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Enrico Bertaggia&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Eugène Chaboud&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Frank Dochnal&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;George Constantine&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Gilles Villeneuve&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Guy Edwards&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Helmut Niedermayr&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Ignazio Giunti&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Jacques Swaters&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Jean-Pierre Jabouille&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Jo Bonnier&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;John Nicholson&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Jonathan Williams&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Kazuyoshi Hoshino&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Lance Reventlow&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Louis Chiron&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Marcel Balsa&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Mauro Baldi&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Mike Harris&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Nelson Piquet Jr.&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Olivier Panis&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Patrick Gaillard&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Peter Ashdown&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Pierluigi Martini&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Reine Wisell&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Robert La Caze&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Rolf Stommelen&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Sergey Sirotkin&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Tarso Marques&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Toni Branca&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Troy Ruttman&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Willy Mairesse&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Alain Prost&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Alex Soler-Roig&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Andy Linden&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Bernard de Dryver&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Bob Drake&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Brian Redman&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Carroll Shelby&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Chuck Arnold&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Dan Gurney&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Dennis Poore&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Dries van der Lof&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Emerson Fittipaldi&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Esteban Ocon&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;François Migault&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;George Abecassis&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Gianni Morbidelli&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Günther Bechem&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Heinz Schiller&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Ian Raby&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Jacky Ickx&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Jean-Louis Schlesser&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Jimmy Jackson&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;John James&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Joie Chitwood&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Karl Wendlinger&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Kurt Kuhnke&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Logan Sargeant&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Manny Ayulo&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Mauri Rose&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Mike Beuttler&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Nasif Estéfano&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Olivier Beretta&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Pat O&apos;Connor&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Perry McCarthy&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Philippe Étancelin&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Raymond Sommer&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Rob Slotemaker&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Roger Penske&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Sebastian Vettel&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Syd van der Vyver&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Tom Pryce&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Travis Webb&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Wayne Weiler&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Al Herman&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Alessandro Zanardi&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Andrea Chiesa&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Bayliss Levrett&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Billy Garrett&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Brian Hart&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Carlos Menditeguy&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Christian Fittipaldi&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Cristiano da Matta&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;David Prophet&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Don Edmunds&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Eliseo Salazar&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Ernst Klodwig&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Franco Rol&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Gene Hartley&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Giancarlo Baghetti&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Graham Whitehead&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Harry Schell&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Hubert Hahne&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Jackie Lewis&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Jean Lucienbonnet&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Jim Rigsby&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;John Campbell-Jones&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Johnny Mantz&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Justin Wilson&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Kimi Räikkönen&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Leslie Thorne&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Luiz Bueno&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Masahiro Hasemi&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Mick Schumacher&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Myron Fohr&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Norberto Fontana&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Pascal Fabre&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Pedro de la Rosa&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Phil Hill&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Ralph Firman&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Richie Ginther&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Rodney Nuckey&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Sam Posey&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Stephen South&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Timo Glock&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Toranosuke Takagi&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Walt Brown&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Alberto Crespo&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Allen Berg&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Art Cross&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Bill Holland&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Bobby Rahal&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Cal Niday&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Chico Serra&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Cliff Griffith&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;David Brabham&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Dick Rathmann&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Eddie Keizan&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Eric van de Poele&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Felipe Nasr&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Fritz Riess&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Georges Grignard&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Giorgio Scarlatti&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Hans Heyer&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Herbert MacKay-Fraser&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Jack Aitken&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Jan Lammers&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Jesús Iglesias&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Jochen Mass&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Johnnie Parsons&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Juan Fangio&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Ken Miles&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Lella Lombardi&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Ludovico Scarfiotti&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Mark Blundell&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Michael Andretti&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Mike Sparken&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Nicola Larini&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Oswald Karch&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Paul England&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Peter Monteverdi&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Pierre Gasly&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Ricardo Rosset&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Roberto Lippi&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Rubens Barrichello&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Silvio Moser&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Thierry Boutsen&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Tony Gaze&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Vic Wilson&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Yuki Tsunoda&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Adolfo Cruz&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Aldo Gordini&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;André Milhoux&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Arturo Merzario&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Bill Moss&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Brausch Niemann&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Carl Scarborough&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Chris Craft&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Colin Davis&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;David Hampshire&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Divina Galica&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Edgar Barth&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Ernesto Prinoth&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Franck Montagny&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Gary Brabham&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Gerhard Mitter&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Giovanni Lavaggi&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Hans-Joachim Stuck&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Hideki Noda&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Jack Fairman&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Jay Chamberlain&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Jim Hall&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Joe Fry&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Johnny Cecotto&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Juan Pablo Montoya&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Kenneth McAlpine&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Leo Kinnunen&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Luigi Piotti&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Markus Winkelhock&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Michael May&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Mike Thackwell&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Niki Lauda&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Pablo Birger&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Paul Hawkins&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Peter Walker&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Piers Courage&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Riccardo Paletti&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Roberto Moreno&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Rudolf Schoeller&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Stefan Bellof&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Tiff Needell&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Tony Rolt&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Vitantonio Liuzzi&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Alberto Ascari&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Alfredo Pián&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Archie Scott Brown&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Bill Cantrell&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Bobby Ball&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Bruno Senna&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Chet Miller&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Clemente Biondetti&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Dave Kennedy&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Desmond Titterington&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Eddie Irvine&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Eric Brandon&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Felice Bonetto&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Fred Wacker&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;George Russell&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Giorgio Francia&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Hans Binder&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Henry Banks&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Ivor Bueb&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;James Hunt&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Jerry Hoyt&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Jo Vonlanthen&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;John Taylor&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;José Froilán González&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Ken Downing&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Larry Perkins&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Luciano Burti&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Mario Andretti&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Max Verstappen&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Mike Nazaruk&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Nico Hülkenberg&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Oscar Larrauri&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Paul di Resta&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Peter Gethin&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Piero Scotti&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Ricardo Londoño&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Roberto Bussinello&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Ronnie Peterson&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Shorty Templeman&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Theo Fitzau&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Tony Brooks&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Vern Schuppan&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Yannick Dalmas&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Al Keller&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Alex Blignaut&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Andrea de Adamich&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Ben Pon&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Bob Anderson&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Brian Henton&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Carlos Pace&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Christian Goethals&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Cuth Harrison&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;David Purley&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Don Freeland&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Elmer George&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Ernst Loof&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;François Cevert&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Geoff Crossley&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Giancarlo Fisichella&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Gregor Foitek&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Hector Rebaque&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Huub Rothengatter&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Jackie Oliver&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Jean-Christophe Boullion&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Jimmy Bryan&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;John Cannon&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Johnny McDowell&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Jyrki Järvilehto&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Kunimitsu Takahashi&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Lewis Hamilton&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Luki Botha&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Massimiliano Papis&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Miguel Ángel Guerra&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Nanni Galli&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Noritake Takahara&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Pascal Wehrlein&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Pedro Diniz&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Philip Fotheringham-Parker&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Raul Boesel&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Rikky von Opel&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Roelof Wunderink&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Sam Tingle&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Stirling Moss&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Tom Belsø&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Torsten Palm&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Walt Faulkner&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Alan Rollinson&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Alexander Wurz&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Antonio Creus&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Bertrand Gachot&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Bob Scott&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Bruce Kessler&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Charles Leclerc&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Claudio Langes&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Danny Ongais&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Derek Daly&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Duncan Hamilton&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Enrique Bernoldi&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Eugène Martin&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Frank Gardner&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;George Eaton&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Gino Bianco&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Guy Ligier&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Helmuth Koinigg&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Ingo Hoffmann&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Jacques Villeneuve&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Jean-Pierre Jarier&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Jo Gartner&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;John Rhodes&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Jorge Daponte&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Keith Andrews&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Lance Stroll&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Louis Rosier&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Marco Apicella&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Max Chilton&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Mike Hawthorn&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Neville Lederle&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Onofre Marimón&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Patrick Nève&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Peter Broeker&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Piero Carini&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Renato Pirocchi&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Robert Manzon&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Romain Grosjean&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Sergio Mantovani&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Ted Whiteaway&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Toni Ulmen&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Ukyo Katayama&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Wilson Fittipaldi&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Alan Stacey&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Alfonso de Portago&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Antonio Giovinazzi&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Bill Aston&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Bob Sweikert&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Bruce McLaren&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Charles Pic&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Clay Regazzoni&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Danny Sullivan&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Derek Warwick&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Ed Elisian&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Eppie Wietzes&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Eugenio Castellotti&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Fred Agabashian&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;George Follmer&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Gino Munaron&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Guy Mairesse&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Henri Louveau&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Innes Ireland&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Jacques Villeneuve Sr.&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Jenson Button&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Jo Schlesser&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;John Riseley-Prichard&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Jos Verstappen&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Keith Greene&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Lando Norris&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Luca Badoer&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Marcus Ericsson&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Max de Terra&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Mike MacDowel&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Nicholas Latifi&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Oscar Gálvez&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Patrick Tambay&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Peter Collins&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Piero Drogo&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;René Arnoux&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Robert O&apos;Brien&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Ron Flockhart&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Sergio Pérez&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Teddy Pilette&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Tony Bettenhausen&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Umberto Maglioli&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Wolfgang Seidel&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Alberto Colombo&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Allan McNish&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Art Bisch&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Bill Cheesbourg&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Bobby Grim&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Bud Tingelstad&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Chico Landi&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Cliff Allison&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Dave Morgan&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Dick Gibson&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Eddie Johnson&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Eric Thompson&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Felipe Massa&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Fritz d&apos;Orey&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Georges Berger&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Giorgio Pantano&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Hans Herrmann&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Henry Taylor&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Jac Nelleman&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Jan Flinterman&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Jerry Unser&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Joachim Winkelhock&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;John Watson&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Josef Peters&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Ken Kavanagh&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Lee Wallard&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Lucien Bianchi&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Mário de Araújo Cabral&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Menato Boffa&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Mike Parkes&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Nico Rosberg&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Oscar Piastri&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Paul Emery&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Peter Hirt&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Piero Taruffi&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Ricardo Rodríguez&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Roberto Guerrero&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Roy Salvadori&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Siegfried Stohr&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Theo Helfrich&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Tony Crook&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Vic Elford&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Yuji Ide&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Alberto Rodriguez Larreta&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;André Guelfi&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Arthur Legat&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Bill Homeier&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Bobby Unser&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Carel Godin de Beaufort&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Chris Amon&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Clive Puzey&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;David Clapham&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Didier Pironi&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Eddie Russo&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Érik Comas&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Fernando Alonso&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Gabriele Tarquini&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Gérard Larrousse&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Giovanna Amati&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Hans Klenk&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Hermann Lang&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Jack Brabham&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Jan Magnussen&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Jim Clark&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Jochen Rindt&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Johnnie Tolan&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Juan Jover&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Ken Richardson&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Len Duncan&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Luigi Fagioli&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Mark Donohue&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Michael Bartels&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Mike Spence&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Nicolas Kiesa&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Otto Stuppacher&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Paul Frère&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Peter Revson&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Pierre Levegh&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Ricardo Zonta&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Roberto Merhi&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Rudi Fischer&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Skip Barber&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Thomas Monarch&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Tony Maggs&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Vincenzo Sospiri&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Yves Cabantous&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Alan Brown&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Alex Yoong&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Andy Sutcliffe&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Bernd Schneider&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Bob Evans&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Brian Shawe Taylor&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Cecil Green&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Chuck Daigh&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Daniel Ricciardo&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Dennis Taylor&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Duane Carter&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Emilio de Villota&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Esteban Tuero&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;François Picard&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;George Amick&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Giedo van der Garde&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Günther Seiffert&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Heinz-Harald Frentzen&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Ian Scheckter&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Jacques Laffite&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Jean-Marc Gounon&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Jimmy Reece&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;John Love&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Jolyon Palmer&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Karun Chandhok&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Lamberto Leoni&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Lorenzo Bandini&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Marc Gené&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Maurice Trintignant&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Mike Fisher&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Nello Pagani&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Olivier Gendebien&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Patrick Depailler&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Pete Lovely&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Philippe Streiff&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Red Amick&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Robert Doornbos&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Roger Williamson&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Sébastien Bourdais&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Taki Inoue&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Tomáš Enge&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Trevor Blokdyk&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Will Stevens&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Al Pease&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Alex Caffi&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Andrea de Cesaris&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Beppe Gabbiani&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Bob Bondurant&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Brian McGuire&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Carlos Reutemann&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Christian Klien&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Damien Magee&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;David Walker&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Dorino Serafini&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Emanuele Naspetti&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Erwin Bauer&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;François Hesnault&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Geoff Duke&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Gianfranco Brancatelli&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Guanyu Zhou&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Heikki Kovalainen&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Ian Ashley&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Jackie Pretorius&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Jean-Denis Délétraz&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Jimmy Davies&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;John Cordts&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Johnny Servoz-Gavin&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Kamui Kobayashi&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Kurt Adolff&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Liam Lawson&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Mack Hellings&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Massimo Natili&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Mika Häkkinen&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Naoki Hattori&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Nyck de Vries&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Pastor Maldonado&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Pedro Lamy&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Philippe Adams&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Ray Crawford&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Rio Haryanto&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Roger Laurent&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Satoru Nakajima&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Stoffel Vandoorne&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Tom Bridger&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Toshio Suzuki&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Walt Hansgen&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Adrián Campos&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Alessandro de Tomaso&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;André Pilette&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Ayrton Senna&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Bill Schindler&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Brendon Hartley&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Carlo Abate&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Chris Irwin&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Conny Andersson&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;David Hobbs&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Domenico Schiattarella&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Eitel Cantoni&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Ernie de Vos&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Franco Colapinto&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Gary Hocking&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Gerino Gerini&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Giulio Cabianca&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Hap Sharp&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Hiroshi Fushida&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Jack McGrath&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Jean Alesi&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Jim Hurtubise&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Joe James&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Johnny Claes&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Jud Larson&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Kenny Acheson&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Les Leston&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Luigi Taramazzo&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Marshall Teague&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Michael Schumacher&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Mike Wilds&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Nikita Mazepin&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Paco Godia&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Paul Pietsch&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Peter Westbury&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Pietro Fittipaldi&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Riccardo Patrese&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Robin Montgomerie-Charrington&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Rupert Keegan&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Stefan Johansson&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Tim Parnell&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Tony Settember&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Vittorio Brambilla&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Albert Scherrer&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Alfonso Thiele&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Antônio Pizzonia&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Bill Brack&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Bob Veith&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Bruno Giacomelli&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Charles Pozzi&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Clemar Bucci&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Dave Charlton&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Desiré Wilson&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Eddie Cheever&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Éric Bernard&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Fabrizio Barbazza&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Fred Gamble&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;George Fonder&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Giorgio Bassi&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Guy Tunmer&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Henri Pescarolo&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Ivan Capelli&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Jaime Alguersuari&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Jérôme d&apos;Ambrosio&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Jo Siffert&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;John Surtees&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;José Dolhem&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Keke Rosberg&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Larry Crockett&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Lucas di Grassi&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Maria de Filippis&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Max Jean&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Mike Magill&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Nick Heidfeld&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Óscar González&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Paul Belmondo&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Peter de Klerk&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Piero Dusio&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Renzo Zorzi&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Roberto Bonomi&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Ronnie Bucknum&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Shinji Nakano&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Teo Fabi&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Tony Brise&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Valtteri Bottas&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Wolfgang von Trips&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Alan Jones&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Alexander Albon&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Anthony Davidson&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Bernie Ecclestone&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Bob Gerard&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Bruce Halford&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Cesare Perdisa&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Chuck Stevenson&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Daniil Kvyat&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Denny Hulme&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Duke Dinsmore&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Emilio Zapico&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Ettore Chimeri&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Frank Armi&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;George Connor&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Gijs van Lennep&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Gus Hutchison&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Helmut Marko&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Ian Stewart&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Jacques Pollet&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Jean-Pierre Beltoise&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Jimmy Stewart&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;John Miles&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Jonathan Palmer&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Kazuki Nakajima&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Lance Macklin&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Loris Kessel&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Marc Surer&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Maurício Gugelmin&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Mike Hailwood&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Nelson Piquet&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Olivier Grouillard&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Patrick Friesacher&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Peter Arundell&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Piercarlo Ghinzani&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Reg Parnell&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Robert Kubica&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Roland Ratzenberger&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Sébastien Buemi&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Takuma Sato&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Tommy Byrne&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Trevor Taylor&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Willi Heeks&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Adrian Sutil&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Alessandro Nannini&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;André Simon&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Azdrubal Fontes&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Bill Vukovich&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Brett Lunger&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Carlo Facetti&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Chris Lawrence&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Consalvo Sanesi&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;David Murray&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Don Beauman&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Élie Bayol&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Ernie McCoy&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Franco Comotti&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Gastón Mazzacane&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Gerry Ashmore&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Graham Hill&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Harald Ertl&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Horace Gould&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Jack Turner&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Jean Behra&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Jim McWithey&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Joe Kelly&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Johnny Dumfries&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Jules Bianchi&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Kevin Cogan&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Leslie Johnson&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Luigi Villoresi&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Martin Brundle&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Michel Leclère&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Mikko Kozarowitzky&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Nino Farina&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Paddy Driver&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Paul Russo&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Peter Whitehead&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Prince Bira&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Richard Attwood&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Robin Widdows&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Sakon Yamamoto&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Stefano Modena&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Tim Schenken&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Tony Shelly&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Volker Weidler&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:constructor_name:nk]' type='palette'>
+            <map to='#499894'>
+              <bucket>&quot;AlphaTauri&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Mercedes&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Red Bull&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Aston Martin&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Sauber&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;RB F1 Team&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Williams&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Toro Rosso&quot;</bucket>
+            </map>
+            <map to='#a4a9ab'>
+              <bucket>&quot;Haas F1 Team&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Alpine F1 Team&quot;</bucket>
+            </map>
+            <map to='#c11a3b'>
+              <bucket>&quot;Renault&quot;</bucket>
+            </map>
+            <map to='#ca3a42'>
+              <bucket>&quot;Ferrari&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Racing Point&quot;</bucket>
+            </map>
+            <map to='#ed444a'>
+              <bucket>&quot;Alfa Romeo&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;McLaren&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk]&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;India&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='f1_main_extract.csv' id='f1_main_extract.csv_0A4A6E0F2DF34E4BB99FD0FDC34628D4'>
+            <properties context=''>
+              <relation connection='textscan.130huzw0r517vs15sldgt14mh3c4' name='f1_main_extract.csv' table='[f1_main_extract#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_IN' separator=','>
+                  <column datatype='integer' name='result_id' ordinal='0' />
+                  <column datatype='string' name='driver_name' ordinal='1' />
+                  <column datatype='string' name='driver_nationality' ordinal='2' />
+                  <column datatype='string' name='constructor_name' ordinal='3' />
+                  <column datatype='string' name='constructor_nationality' ordinal='4' />
+                  <column datatype='string' name='circuit_name' ordinal='5' />
+                  <column datatype='string' name='circuit_country' ordinal='6' />
+                  <column datatype='integer' name='year' ordinal='7' />
+                  <column datatype='integer' name='round' ordinal='8' />
+                  <column datatype='date' name='race_date' ordinal='9' />
+                  <column datatype='string' name='race_name' ordinal='10' />
+                  <column datatype='integer' name='grid' ordinal='11' />
+                  <column datatype='integer' name='finish_position' ordinal='12' />
+                  <column datatype='real' name='points' ordinal='13' />
+                  <column datatype='integer' name='laps' ordinal='14' />
+                  <column datatype='string' name='status' ordinal='15' />
+                  <column datatype='string' name='status_category' ordinal='16' />
+                  <column datatype='real' name='grid_delta' ordinal='17' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Championship Progression'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#000000' fontname='Benton Sans Book'>2023 Championship Points Progression — Top 5 Drivers </run>
+            <run>&lt;Sheet Name&gt;</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='f1_main_extract' name='federated.1n2p4q403w5ynf1266lhp1tcm6wu' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1n2p4q403w5ynf1266lhp1tcm6wu'>
+            <column-instance column='[points]' derivation='Sum' name='[cum:sum:points:qk:4]' pivot='key' type='quantitative'>
+              <table-calc aggregation='Sum' ordering-type='Rows' type='CumTotal' />
+            </column-instance>
+            <column caption='Driver Name' datatype='string' name='[driver_name]' role='dimension' type='nominal' />
+            <column-instance column='[driver_name]' derivation='None' name='[none:driver_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[round]' derivation='None' name='[none:round:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
+            <column caption='Points' datatype='real' name='[points]' role='measure' type='quantitative' />
+            <column aggregation='Sum' caption='Round' datatype='integer' name='[round]' role='dimension' type='ordinal' />
+            <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]'>
+            <groupfilter count='5' end='top' function='end' units='records' user:ui-marker='end' user:ui-top-by-field='true'>
+              <groupfilter direction='DESC' expression='SUM([points])' function='order' user:ui-marker='order'>
+                <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Alexander Albon&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Carlos Sainz&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Charles Leclerc&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Daniel Ricciardo&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Esteban Ocon&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Fernando Alonso&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;George Russell&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Guanyu Zhou&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Kevin Magnussen&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Lance Stroll&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Lando Norris&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Lewis Hamilton&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Liam Lawson&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Logan Sargeant&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Max Verstappen&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Nico Hülkenberg&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Nyck de Vries&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Oscar Piastri&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Pierre Gasly&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Sergio Pérez&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Valtteri Bottas&quot;' />
+                  <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Yuki Tsunoda&quot;' />
+                </groupfilter>
+              </groupfilter>
+            </groupfilter>
+          </filter>
+          <filter class='quantitative' column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]' included-values='in-range'>
+            <min>2023</min>
+            <max>2023</max>
+          </filter>
+          <slices>
+            <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]</column>
+            <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[cum:sum:points:qk:4]' scope='rows' value='Cumulative Points' />
+            <format attr='title' class='0' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:round:qk]' scope='cols' value='Round' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <color column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[cum:sum:points:qk:4]</rows>
+        <cols>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:round:qk]</cols>
+      </table>
+      <simple-id uuid='{B2B52FF8-445A-4E2C-A356-C05A06C41E72}' />
+    </worksheet>
+    <worksheet name='Constructor Reliability Heatmap'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#000000' fontname='Benton Sans Book'>Mechanical Failure Rate by Constructor (2019–2024)</run>
+            <run>&#10;&lt;Sheet Name&gt;</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='f1_main_extract' name='federated.1n2p4q403w5ynf1266lhp1tcm6wu' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1n2p4q403w5ynf1266lhp1tcm6wu'>
+            <column caption='Is Mechanical Failure' datatype='integer' name='[Calculation_0395308281712642]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [status_category] = &quot;Mechanical/Other&quot; THEN 1 ELSE 0 END' />
+            </column>
+            <column caption='Mechanical Failure Rate' datatype='real' name='[Calculation_0395308282032131]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([Calculation_0395308281712642]) / COUNT([result_id])' />
+            </column>
+            <column caption='Constructor Name' datatype='string' name='[constructor_name]' role='dimension' type='nominal' />
+            <column-instance column='[constructor_name]' derivation='None' name='[none:constructor_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
+            <column caption='Result Id' datatype='integer' name='[result_id]' role='dimension' type='ordinal' />
+            <column caption='Status Category' datatype='string' name='[status_category]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_0395308282032131]' derivation='User' name='[usr:Calculation_0395308282032131:qk]' pivot='key' type='quantitative' />
+            <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]' included-values='in-range'>
+            <min>2019</min>
+            <max>2024</max>
+          </filter>
+          <slices>
+            <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='text-format' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308282032131:qk]' value='p0.000%' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='text-format' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308282032131:qk]' value='p0.000%' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308282032131:qk]' palette='red_10_0' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Square' />
+            <encodings>
+              <color column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308282032131:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:constructor_name:nk]</rows>
+        <cols>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]</cols>
+      </table>
+      <simple-id uuid='{E5D57547-36DE-48EE-9C90-DF60C3463095}' />
+    </worksheet>
+    <worksheet name='Constructor Wins &amp; Podiums'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run><![CDATA[2023 Constructor Wins vs Podiums
+<Sheet Name>]]></run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='f1_main_extract' name='federated.1n2p4q403w5ynf1266lhp1tcm6wu' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1n2p4q403w5ynf1266lhp1tcm6wu'>
+            <column caption='Is Podium' datatype='integer' name='[Calculation_0395308276121600]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [finish_position] &lt;= 3 THEN 1 ELSE 0 END' />
+            </column>
+            <column caption='Is Win' datatype='integer' name='[Calculation_0395308276228097]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [finish_position] = 1 THEN 1 ELSE 0 END' />
+            </column>
+            <column caption='Constructor Name' datatype='string' name='[constructor_name]' role='dimension' type='nominal' />
+            <column caption='Finish Position' datatype='integer' name='[finish_position]' role='measure' type='quantitative' />
+            <column-instance column='[constructor_name]' derivation='None' name='[none:constructor_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_0395308276121600]' derivation='Sum' name='[sum:Calculation_0395308276121600:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_0395308276228097]' derivation='Sum' name='[sum:Calculation_0395308276228097:qk]' pivot='key' type='quantitative' />
+            <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]' included-values='in-range'>
+            <min>2023</min>
+            <max>2023</max>
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:constructor_name:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_0395308276228097:qk]' shelf='rows' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <style>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='406' />
+                <format attr='maxwidth' value='406' />
+                <format attr='minheight' value='200' />
+                <format attr='maxheight' value='200' />
+                <format attr='aspect' value='0' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_0395308276228097:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_0395308276121600:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:constructor_name:nk]</rows>
+        <cols>([federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_0395308276228097:qk] + [federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_0395308276121600:qk])</cols>
+      </table>
+      <simple-id uuid='{84EB3B9F-118F-4ABA-B0A9-9F7DD15F6328}' />
+    </worksheet>
+    <worksheet name='Finish Rate by Constructor'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#000000' fontname='Benton Sans Book'>Constructor Finish Rate (2019–2024)</run>
+            <run>&#10;&lt;Sheet Name&gt;</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='f1_main_extract' name='federated.1n2p4q403w5ynf1266lhp1tcm6wu' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1n2p4q403w5ynf1266lhp1tcm6wu'>
+            <column caption='Is Mechanical Failure' datatype='integer' name='[Calculation_0395308281712642]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [status_category] = &quot;Mechanical/Other&quot; THEN 1 ELSE 0 END' />
+            </column>
+            <column caption='Finish Rate' datatype='real' name='[Calculation_0395308285964292]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='1 - SUM([Calculation_0395308281712642]) / COUNT([result_id])' />
+            </column>
+            <column caption='Constructor Name' datatype='string' name='[constructor_name]' role='dimension' type='nominal' />
+            <column-instance column='[constructor_name]' derivation='None' name='[none:constructor_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
+            <column caption='Result Id' datatype='integer' name='[result_id]' role='dimension' type='ordinal' />
+            <column caption='Status Category' datatype='string' name='[status_category]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_0395308285964292]' derivation='User' name='[usr:Calculation_0395308285964292:qk]' pivot='key' type='quantitative' />
+            <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+          </datasource-dependencies>
+          <computed-sort column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:constructor_name:nk]' direction='DESC' using='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308285964292:qk]' />
+          <filter class='quantitative' column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]' included-values='in-range'>
+            <min>2019</min>
+            <max>2024</max>
+          </filter>
+          <slices>
+            <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='text-format' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308285964292:qk]' value='p0.000%' />
+            <format attr='text-format' data-class='subtotal' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308285964292:qk]' value='p0.00%' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='text-format' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308285964292:qk]' value='p0.00%' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:constructor_name:nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:constructor_name:nk]</rows>
+        <cols>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308285964292:qk]</cols>
+      </table>
+      <simple-id uuid='{C23BEEA6-0422-45E5-BFA9-1DB748E6566E}' />
+    </worksheet>
+    <worksheet name='Qualifying vs Race Pace'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#000000' fontname='Benton Sans Book'>Grid Position vs Finish Position (2023, Selected Drivers)</run>
+            <run>&#10;&lt;Sheet Name&gt;</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='f1_main_extract' name='federated.1n2p4q403w5ynf1266lhp1tcm6wu' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1n2p4q403w5ynf1266lhp1tcm6wu'>
+            <column caption='Diagonal Reference' datatype='integer' name='[Calculation_1155071051747328]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='[grid]' />
+            </column>
+            <column caption='Driver Name' datatype='string' name='[driver_name]' role='dimension' type='nominal' />
+            <column caption='Finish Position' datatype='integer' name='[finish_position]' role='measure' type='quantitative' />
+            <column caption='Grid' datatype='integer' name='[grid]' role='measure' type='quantitative' />
+            <column-instance column='[driver_name]' derivation='None' name='[none:driver_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_1155071051747328]' derivation='Sum' name='[sum:Calculation_1155071051747328:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[finish_position]' derivation='Sum' name='[sum:finish_position:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[grid]' derivation='Sum' name='[sum:grid:qk]' pivot='key' type='quantitative' />
+            <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Charles Leclerc&quot;' />
+              <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Fernando Alonso&quot;' />
+              <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Lando Norris&quot;' />
+              <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Lewis Hamilton&quot;' />
+              <groupfilter function='member' level='[none:driver_name:nk]' member='&quot;Max Verstappen&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='quantitative' column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]' included-values='in-range'>
+            <min>2023</min>
+            <max>2023</max>
+          </filter>
+          <slices>
+            <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]</column>
+            <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]</column>
+          </slices>
+          <aggregation value='false' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk]' field-type='quantitative' fold='true' scope='rows' type='space' />
+            <format attr='width' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:finish_position:qk]' value='64' />
+            <format attr='width' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk]' value='64' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Circle' />
+            <encodings>
+              <color column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-transparency' value='193' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='630' />
+                <format attr='maxwidth' value='630' />
+                <format attr='minheight' value='640' />
+                <format attr='maxheight' value='640' />
+                <format attr='aspect' value='0' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:finish_position:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Circle' />
+            <encodings>
+              <color column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]' />
+              <color column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-transparency' value='193' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <color column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' />
+            </encodings>
+            <customized-tooltip>
+              <formatted-text>
+                <run fontcolor='#757575'>Driver Name:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#757575'>Grid:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:grid:qk]>]]></run>
+                <run>Æ&#10;</run>
+                <run bold='true'>Round: &lt;Round&gt;</run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#000000' fontname='Benton Sans Book'><![CDATA[Finish Position: <[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:finish_position:qk]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#757575'>Diagonal Reference:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk]>]]></run>
+              </formatted-text>
+            </customized-tooltip>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-transparency' value='208' />
+                <format attr='mark-line-pattern' value='dashed' />
+                <format attr='size' value='0.55972373485565186' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:finish_position:qk] + [federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_1155071051747328:qk])</rows>
+        <cols>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:grid:qk]</cols>
+      </table>
+      <simple-id uuid='{8E580200-F5A1-4795-8E82-19F6E5B83D1B}' />
+    </worksheet>
+    <worksheet name='Sheet 6'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='f1_main_extract' name='federated.1n2p4q403w5ynf1266lhp1tcm6wu' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1n2p4q403w5ynf1266lhp1tcm6wu'>
+            <column caption='Is Leader' datatype='integer' name='[Calculation_0404656446357504]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [driver_name] = &quot;Max Verstappen&quot; THEN 1 ELSE 0 END' />
+            </column>
+            <column caption='Driver Name' datatype='string' name='[driver_name]' role='dimension' type='nominal' />
+            <column-instance column='[driver_name]' derivation='None' name='[none:driver_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
+            <column caption='Points' datatype='real' name='[points]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_0404656446357504]' derivation='Sum' name='[sum:Calculation_0404656446357504:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[points]' derivation='Sum' name='[sum:points:qk]' pivot='key' type='quantitative' />
+            <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+          </datasource-dependencies>
+          <computed-sort column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]' direction='DESC' using='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:points:qk]' />
+          <filter class='quantitative' column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]' included-values='in-range'>
+            <min>2024</min>
+            <max>2024</max>
+          </filter>
+          <slices>
+            <column>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:year:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='text-format' field='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:points:qk]' value='N' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:points:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:points:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:points:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_0404656446357504:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:points:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='3' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_0404656446357504:qk]' x-index='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:points:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]</rows>
+        <cols>([federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:points:qk] + ([federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_0404656446357504:qk] + [federated.1n2p4q403w5ynf1266lhp1tcm6wu].[sum:Calculation_0404656446357504:qk]))</cols>
+      </table>
+      <simple-id uuid='{EDBBAC80-0148-4713-8A87-F65F06B23EDF}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard enable-sort-zone-taborder='true' name='2023 Qualifying vs Race Pace '>
+      <style />
+      <size maxheight='827' maxwidth='1169' minheight='827' minwidth='1169' preset-index='16' sizing-mode='fixed' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98066' id='7' param='horz' type-v2='layout-flow' w='98632' x='684' y='967'>
+            <zone h='98066' id='5' type-v2='layout-basic' w='85373' x='684' y='967'>
+              <zone h='49033' id='3' name='Qualifying vs Race Pace' w='85373' x='684' y='967'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='49033' id='10' name='Constructor Wins &amp; Podiums' w='85373' x='684' y='50000'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+            <zone fixed-size='155' h='98066' id='6' is-fixed='true' param='vert' type-v2='layout-flow' w='13259' x='86057' y='967'>
+              <zone h='16324' id='8' name='Qualifying vs Race Pace' pane-specification-id='1' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]&#10;[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type-v2='color' w='13259' x='86057' y='967'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='6167' id='9' name='Qualifying vs Race Pace' pane-specification-id='2' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type-v2='color' w='13259' x='86057' y='17291'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='750' minheight='750' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='12' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98066' id='11' param='vert' type-v2='layout-flow' w='98632' x='684' y='967'>
+                <zone fixed-size='280' h='49033' id='3' is-fixed='true' name='Qualifying vs Race Pace' w='85373' x='684' y='967'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='16324' id='8' name='Qualifying vs Race Pace' pane-specification-id='1' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]&#10;[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type-v2='color' w='13259' x='86057' y='967'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='6167' id='9' name='Qualifying vs Race Pace' pane-specification-id='2' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type-v2='color' w='13259' x='86057' y='17291'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='49033' id='10' is-fixed='true' name='Constructor Wins &amp; Podiums' w='85373' x='684' y='50000'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{B4C373F0-C586-4AE4-BDD7-030D05B3559D}' />
+    </dashboard>
+    <dashboard enable-sort-zone-taborder='true' name='Constructor Reliability Deep-Dive'>
+      <style />
+      <size maxheight='827' maxwidth='1169' minheight='827' minwidth='1169' preset-index='16' sizing-mode='fixed' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98066' id='7' param='horz' type-v2='layout-flow' w='98632' x='684' y='967'>
+            <zone h='98066' id='5' type-v2='layout-basic' w='85373' x='684' y='967'>
+              <zone h='48973' id='3' name='Constructor Reliability Heatmap' w='85373' x='684' y='967'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='49093' id='9' name='Finish Rate by Constructor' w='85373' x='684' y='49940'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+            <zone fixed-size='155' h='98066' id='6' is-fixed='true' param='vert' type-v2='layout-flow' w='13259' x='86057' y='967'>
+              <zone fixed-size='71' h='9552' id='8' is-fixed='true' name='Constructor Reliability Heatmap' pane-specification-id='0' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308282032131:qk]' type-v2='color' w='13259' x='86057' y='967'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='41717' id='10' name='Finish Rate by Constructor' pane-specification-id='0' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:constructor_name:nk]' type-v2='color' w='13259' x='86057' y='10519'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='750' minheight='750' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='18' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98066' id='17' param='vert' type-v2='layout-flow' w='98632' x='684' y='967'>
+                <zone fixed-size='280' h='48973' id='3' is-fixed='true' name='Constructor Reliability Heatmap' w='85373' x='684' y='967'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='71' h='9552' id='8' name='Constructor Reliability Heatmap' pane-specification-id='0' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308282032131:qk]' type-v2='color' w='13259' x='86057' y='967'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='49093' id='9' is-fixed='true' name='Finish Rate by Constructor' w='85373' x='684' y='49940'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='41717' id='10' name='Finish Rate by Constructor' pane-specification-id='0' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:constructor_name:nk]' type-v2='color' w='13259' x='86057' y='10519'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{4B7AA398-AA44-4AA7-AD43-B95579EC0D6C}' />
+    </dashboard>
+    <dashboard enable-sort-zone-taborder='true' name='Dashboard 1'>
+      <style />
+      <size maxheight='827' maxwidth='1169' minheight='827' minwidth='1169' preset-index='16' sizing-mode='fixed' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98066' id='7' param='horz' type-v2='layout-flow' w='98632' x='684' y='967'>
+            <zone h='98066' id='5' type-v2='layout-basic' w='83063' x='684' y='967'>
+              <zone h='49029' id='3' name='Championship Progression' w='83063' x='684' y='967'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='49037' id='9' name='Constructor Wins &amp; Podiums' w='83063' x='684' y='49996'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+            <zone fixed-size='182' h='98066' id='6' is-fixed='true' param='vert' type-v2='layout-flow' w='15569' x='83747' y='967'>
+              <zone fixed-size='133' h='17049' id='8' is-fixed='true' name='Championship Progression' pane-specification-id='0' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]' type-v2='color' w='15569' x='83747' y='967'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='700' minheight='700' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='29' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='84000' id='28' param='vert' type-v2='layout-flow' w='84000' x='8000' y='8000'>
+                <zone fixed-size='280' h='49029' id='3' is-fixed='true' name='Championship Progression' w='83063' x='684' y='967'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='133' h='17049' id='8' name='Championship Progression' pane-specification-id='0' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]' type-v2='color' w='15569' x='83747' y='967'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='49037' id='9' is-fixed='true' name='Constructor Wins &amp; Podiums' w='83063' x='684' y='49996'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{CF9FE5AF-555B-43B8-AB8A-68CBE7E2E645}' />
+    </dashboard>
+  </dashboards>
+  <windows source-height='37'>
+    <window class='worksheet' name='Championship Progression'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+          <strip size='160'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{5839F69E-55CA-4D93-8771-4F59026EE623}' />
+    </window>
+    <window class='worksheet' name='Constructor Wins &amp; Podiums'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+          <strip size='141'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{8789E10E-FBA5-4049-816E-312B87F3F45B}' />
+    </window>
+    <window class='dashboard' name='Dashboard 1'>
+      <viewpoints>
+        <viewpoint name='Championship Progression'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Constructor Wins &amp; Podiums' />
+      </viewpoints>
+      <active id='-1' />
+      <simple-id uuid='{B4A6742A-EF03-43E7-966C-7AA104821A15}' />
+    </window>
+    <window class='worksheet' name='Constructor Reliability Heatmap'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[usr:Calculation_0395308282032131:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{33F0F4C5-586D-43E2-938F-F48A417015ED}' />
+    </window>
+    <window class='worksheet' name='Finish Rate by Constructor'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:constructor_name:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{4AB3EC78-E517-4A3B-B21B-99BD515CECC5}' />
+    </window>
+    <window class='dashboard' name='Constructor Reliability Deep-Dive'>
+      <viewpoints>
+        <viewpoint name='Constructor Reliability Heatmap' />
+        <viewpoint name='Finish Rate by Constructor' />
+      </viewpoints>
+      <active id='-1' />
+      <simple-id uuid='{9666E3B5-7592-4988-9546-3654E8332C86}' />
+    </window>
+    <window class='worksheet' name='Qualifying vs Race Pace'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='1' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[none:driver_name:nk]&#10;[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type='color' />
+            <card pane-specification-id='2' param='[federated.1n2p4q403w5ynf1266lhp1tcm6wu].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{CFF39DBC-6137-4FAD-8EF4-B6C4782CA98A}' />
+    </window>
+    <window class='dashboard' name='2023 Qualifying vs Race Pace '>
+      <viewpoints>
+        <viewpoint name='Constructor Wins &amp; Podiums' />
+        <viewpoint name='Qualifying vs Race Pace'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='-1' />
+      <simple-id uuid='{28B0C616-E77C-49DC-9A40-347BB11F6BE7}' />
+    </window>
+    <window class='worksheet' maximized='true' name='Sheet 6'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{32647140-62C6-4D24-A3AA-EAFA3E965135}' />
+    </window>
+  </windows>
+</workbook>
